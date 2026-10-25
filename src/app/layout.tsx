@@ -1,7 +1,28 @@
 import type { Metadata } from "next";
 import { Inter_Tight, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Background from "@/components/Background";
+
+const matrixType = localFont({
+  src: "../../public/matrixtype.bold.ttf",
+  weight: "700",
+  style: "normal",
+  variable: "--font-matrix-type",
+  display: "swap",
+});
+
+const mileast = localFont({
+  src: "../../public/mileast.regular.otf",
+  variable: "--font-mileast-type",
+  display: "swap",
+});
+
+const nevera = localFont({
+  src: "../../public/Nevera-Regular.otf",
+  variable: "--font-nevera-type",
+  display: "swap",
+});
 
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
@@ -23,7 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${interTight.variable} ${geistMono.variable} ${matrixType.variable} ${nevera.variable} ${mileast.variable} h-full antialiased`}
     >
       <body className="bg-background text-foreground font-sans flex min-h-full flex-col">
         <Background />

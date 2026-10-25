@@ -7,11 +7,9 @@ const mono =
 const ease = [0.2, 0.7, 0.1, 1] as const;
 
 const statement =
-  "TITARVL IS A DIGITAL PRACTICE WORKING AT THE INTERSECTION OF BRAND IDENTITY AND WEB, DESIGNING AND BUILDING DISTINCT DIGITAL EXPERIENCES WHERE CONCEPT, TYPOGRAPHY, AND EXECUTION COME TOGETHER AS ONE";
+  "Hi, I’m Harshita Upadhyay, a UI/UX and Product Designer creating simple, accessible interfaces backed by user research and design systems. My reusable components are used by a large community of designers. I’ve worked at Finn AI and Skedio Creative Studio, and I’m building Designers Room, a platform that brings the design journey together in one place.";
 
 const words = statement.split(" ");
-
-const meta = ["TITARVL", "2026", "BRATISLAVA, SK", "視覚 文字"];
 
 export default function WhatIDo() {
   return (
@@ -47,38 +45,12 @@ export default function WhatIDo() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease }}
-        className="mt-16 md:mt-20"
-      >
-        <div className="relative flex aspect-video w-full items-center justify-center bg-neutral-900">
-          <span className={`${mono} text-inverse-foreground opacity-70`}>
-            SHOWREEL — LOOP / MUTED
-          </span>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease }}
         className="mt-12 md:mt-16"
       >
-        <div className={`${mono} grid grid-cols-2 gap-6 md:grid-cols-4`}>
-          {meta.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
-
         <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <p className="max-w-[24ch] font-sans text-[18px] leading-[1.2]">
             Design is the silent ambassador of your brand.
           </p>
-          <a
-            href="/about"
-            className={`${mono} transition-opacity duration-200 hover:opacity-50`}
-          >
-            [ ABOUT ME ]
-          </a>
         </div>
       </motion.div>
     </section>

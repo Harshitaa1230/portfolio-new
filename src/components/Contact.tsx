@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const mono =
   "font-mono uppercase tracking-[0.02em] text-[12px] leading-[1.2]";
@@ -9,12 +10,6 @@ const ease = [0.2, 0.7, 0.1, 1] as const;
 
 const fieldClass =
   "border-b border-foreground bg-transparent pb-2 font-sans text-[16px] leading-[1.3] outline-none placeholder:text-muted focus:border-b-2";
-
-const portraits = [
-  { tone: "bg-neutral-300", text: "text-foreground", label: "STUDIO — 01" },
-  { tone: "bg-neutral-700", text: "text-inverse-foreground", label: "STUDIO — 02" },
-  { tone: "bg-neutral-500", text: "text-inverse-foreground", label: "STUDIO — 03" },
-];
 
 const topics = [
   "Web Design & Development",
@@ -26,8 +21,10 @@ const topics = [
 
 type Errors = { name?: string; email?: string; message?: string };
 
-export default function Contact() {
-  const [portrait, setPortrait] = useState(0);
+const FORM_ENDPOINT =
+  "https://formsubmit.co/ajax/harshitaupadhyay2287@gmail.com";
+
+export default function Contact({ standalone = false }: { standalone?: boolean }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -35,8 +32,10 @@ export default function Contact() {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors: Errors = {};
     if (!name.trim()) nextErrors.name = "REQUIRED";
@@ -48,30 +47,64 @@ export default function Contact() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    setSent(true);
-    setName("");
-    setEmail("");
-    setPhone("");
-    setTopic("");
-    setMessage("");
+    setSent(false);
+    setSubmitError("");
+    setSending(true);
+
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          topic,
+          message: message.trim(),
+          _replyto: email.trim(),
+          _subject: "New inquiry from portfolio",
+          _template: "table",
+          _captcha: "false",
+          _honey: "",
+        }),
+      });
+
+      if (!response.ok) throw new Error("Request failed");
+
+      setSent(true);
+      setName("");
+      setEmail("");
+      setPhone("");
+      setTopic("");
+      setMessage("");
+    } catch {
+      setSubmitError("SOMETHING WENT WRONG — PLEASE TRY AGAIN.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
-    <section id="contact" className="px-[11px] py-20 md:py-28">
+    <section
+      id="contact"
+      className={`flex w-full flex-col ${
+        standalone
+          ? "mx-auto min-h-[calc(100svh-var(--header-height))] max-w-[1240px] px-5 py-10 sm:px-8 md:py-14 lg:px-12 lg:py-16"
+          : "px-[11px] py-20 md:py-28"
+      }`}
+    >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease }}
-        className="md:grid md:grid-cols-2 md:gap-8"
+        className={`${mono} flex items-start justify-between gap-4`}
       >
-        <span className={mono}>CONTACT</span>
-        <div className="mt-6 flex items-start justify-between gap-4 md:mt-0">
-          <h2 className="font-sans text-[40px] font-medium uppercase leading-[0.95] tracking-[-0.04em] md:text-[56px] lg:text-[64px]">
-            SAY BONJOUR
-          </h2>
-          <span className={mono}>INQUIRY</span>
-        </div>
+        <span>CONTACT</span>
+        <span>INQUIRY</span>
       </motion.div>
 
       <motion.div
@@ -79,37 +112,27 @@ export default function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease, delay: 0.1 }}
-        className="mt-12 grid grid-cols-1 gap-10 md:mt-16 md:grid-cols-2 md:gap-8"
+        className="mt-10 grid flex-1 grid-cols-1 content-center items-start gap-10 md:mt-12 lg:grid-cols-2 lg:gap-16"
       >
-        <div className="hidden md:block">
-          <button
-            type="button"
-            onClick={() => setPortrait((current) => (current + 1) % portraits.length)}
-            aria-label="Next image"
-            className="block w-full max-w-[320px] text-left"
-          >
-            <div className="relative aspect-[4/5] w-full overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={portrait}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, ease }}
-                  className={`absolute inset-0 flex items-end p-4 ${portraits[portrait].tone}`}
-                >
-                  <span className={`${mono} ${portraits[portrait].text}`}>
-                    {portraits[portrait].label}
-                  </span>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-            <span className={`${mono} mt-3 block text-muted`}>[ NEXT IMAGE ]</span>
-          </button>
+        <div>
+          <div className="relative aspect-[4/5] w-full max-w-[320px] overflow-hidden">
+            <Image
+              src="/avatar.png"
+              alt="Harshita Upadhyay"
+              fill
+              sizes="320px"
+              preload
+              className="object-cover"
+            />
+          </div>
         </div>
 
-        <div className="md:col-start-2">
-          <p className="max-w-[320px] font-sans text-[17px] leading-[1.3]">
+        <div className="flex flex-col">
+          <h2 className="font-sans text-[40px] font-medium uppercase leading-[0.95] tracking-[-0.04em] md:text-[56px] lg:text-[64px]">
+            SAY BONJOUR
+          </h2>
+
+          <p className="mt-6 max-w-[36ch] font-sans text-[17px] leading-[1.3]">
             Have a project in mind or just want to say hello? Tell me a little
             about what you&apos;re working on and I&apos;ll be in touch.
           </p>
@@ -201,29 +224,29 @@ export default function Contact() {
               <textarea
                 id="message"
                 name="message"
-                rows={4}
+                rows={5}
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
                 placeholder="Type here…"
-                className={`${fieldClass} resize-y`}
+                className={`${fieldClass} min-h-[140px] resize-y`}
               />
               {errors.message && (
                 <span className={`${mono} text-foreground`}>{errors.message}</span>
               )}
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center gap-6">
               <button
                 type="submit"
-                className={`${mono} transition-opacity duration-200 hover:opacity-50`}
+                disabled={sending}
+                className={`${mono} transition-opacity duration-200 hover:opacity-50 disabled:cursor-wait disabled:opacity-50`}
               >
-                [ SUBMIT ]
+                {sending ? "[ SENDING… ]" : "[ SUBMIT ]"}
               </button>
-              {sent && (
-                <span className={`${mono} text-muted`}>
-                  THANK YOU — I&apos;LL BE IN TOUCH.
-                </span>
-              )}
+              <span aria-live="polite" className={`${mono} text-muted`}>
+                {sent && "THANK YOU — I'LL BE IN TOUCH."}
+                {submitError}
+              </span>
             </div>
           </form>
         </div>

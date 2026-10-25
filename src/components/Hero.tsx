@@ -1,64 +1,59 @@
-"use client";
+import type { CSSProperties } from "react";
+import CursorImages from "@/components/CursorImages";
+import { getMockupImages } from "@/lib/mockups";
 
-import { motion } from "framer-motion";
-
-const mono =
-  "font-mono uppercase tracking-[0.02em] text-[12px] leading-[1.2]";
-const ease = [0.2, 0.7, 0.1, 1] as const;
+const NAME = "HARSHITA";
+const letters = [...NAME];
+const DESIGNERS_ROOM_URL = "https://example.com";
 
 export default function Hero() {
+  const mockupImages = getMockupImages();
+
   return (
     <section
       id="hero"
       className="relative flex min-h-svh flex-col overflow-hidden px-[11px] pt-24 pb-6 md:pt-28"
     >
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease, delay: 0.1 }}
-        className={`${mono} text-muted`}
-      >
-        TITARVL — CREATIVE DIRECTION
-      </motion.p>
-
-      <div className="relative flex flex-1 items-center justify-center">
-        <div
-          aria-hidden
-          className="absolute left-1/2 top-1/2 h-px w-[140%] -translate-x-1/2 -translate-y-1/2 -rotate-[12deg] bg-foreground/50"
-        />
-
-        <motion.span
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease, delay: 0.5 }}
-          className={`${mono} absolute left-0 top-1/2 hidden -translate-y-1/2 md:block`}
+      <div className="relative z-30 flex flex-1 flex-col items-center justify-center gap-6">
+        <h1
+          aria-label={NAME}
+          className="text-center font-mileast text-[clamp(56px,15vw,220px)] font-normal uppercase leading-[0.8] tracking-[-0.02em]"
         >
-          LATEST WORK
-        </motion.span>
+          {letters.map((letter, index) => (
+            <span
+              key={index}
+              aria-hidden
+              className="hero-letter-mask"
+              style={
+                {
+                  "--i": index,
+                  "--spread": `${(index - (letters.length - 1) / 2) * 0.06}em`,
+                } as CSSProperties
+              }
+            >
+              <span className="hero-letter">{letter}</span>
+            </span>
+          ))}
+        </h1>
 
-        <motion.span
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease, delay: 0.5 }}
-          className={`${mono} absolute right-0 top-1/2 hidden -translate-y-1/2 md:block`}
-        >
-          VOL. 01
-        </motion.span>
+        <div aria-hidden className="hero-rule h-px w-[min(70vw,640px)]" />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease, delay: 0.7 }}
-        className="flex justify-center"
-      >
+      <CursorImages images={mockupImages} />
+
+      <div className="absolute right-6 bottom-6 z-30 flex flex-col items-end gap-2 text-right md:right-10 md:bottom-8">
+        <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.02em] text-muted">
+          BUILDING
+        </span>
         <a
-          href="#latest"
-          className={`${mono} transition-opacity duration-200 hover:opacity-50`}
+          href={DESIGNERS_ROOM_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="font-sans text-[16px] leading-none underline decoration-border underline-offset-[6px] transition-opacity duration-200 hover:opacity-50"
         >
-          [ SCROLL DOWN ]
+          Designer&apos;s Room
         </a>
-      </motion.div>
+      </div>
     </section>
   );
 }
