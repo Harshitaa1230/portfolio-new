@@ -1,12 +1,16 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Latest from "@/components/Latest";
-import WhatIDo from "@/components/WhatIDo";
-import Advantage from "@/components/Advantage";
+import AboutTicker from "@/components/AboutTicker";
+import FeaturedWorks from "@/components/FeaturedWorks";
+import Services from "@/components/Services";
+import Philosophy from "@/components/Philosophy";
+import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
-import Contact from "@/components/Contact";
+import Awards from "@/components/Awards";
+import Pricing from "@/components/Pricing";
+import Articles from "@/components/Articles";
+import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
-import { getMockupMedia } from "@/lib/mockups";
 
 export default function Home() {
   return (
@@ -14,11 +18,16 @@ export default function Home() {
       <Navbar />
       <main className="flex flex-1 flex-col">
         <Hero />
-        <Latest mockups={getMockupMedia()} />
-        <WhatIDo />
-        <Advantage />
+        <AboutTicker />
+        <FeaturedWorks />
+        <Services />
+        <Philosophy />
+        <Experience />
         <Testimonials />
-        <Contact />
+        <Awards />
+        <Pricing />
+        <Articles />
+        <Faq />
       </main>
       <Footer />
     </>

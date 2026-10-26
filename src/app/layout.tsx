@@ -33,7 +33,7 @@ const interDisplay = localFont({
 export const metadata: Metadata = {
   title: "Harshita Upadhyay | Product Designer | UI/UX Designer",
   description:
-    "A digital practice working at the intersection of brand identity and web.",
+    "A Product & UI/UX Designer crafting digital experiences for SaaS, EdTech, e-commerce, and cybersecurity products.",
 };
 
 export const viewport: Viewport = {

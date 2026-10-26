@@ -1,18 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+
+const disciplines = ["Product Designer", "UI/UX Designer"];
 
 const quickLinks = [
-  { label: "Home", href: "/#hero" },
-  { label: "Gallery", href: "/#latest" },
+  { label: "Home", href: "/" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Work", href: "/works" },
   { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [disciplineIndex, setDisciplineIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setDisciplineIndex((current) => (current + 1) % disciplines.length);
+    }, 2500);
+
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-background/85 backdrop-blur-md">
@@ -29,7 +40,7 @@ export default function Navbar() {
               href="/"
               className="font-sans font-semibold tracking-[-0.01em] text-foreground transition-opacity duration-200 hover:opacity-70 text-[15px] md:text-[16px] inline-flex items-center gap-0.5"
             >
-              <span>Palmer</span>
+              <span>Harshita</span>
               <span className="text-[10px] md:text-[11px] font-normal align-top leading-none -mt-1">
                 ®
               </span>
@@ -61,10 +72,21 @@ export default function Navbar() {
           {/* Location & Discipline (Right) */}
           <div className="hidden md:flex flex-col items-end gap-1 text-right">
             <span className="font-sans text-[12px] md:text-[13px] text-foreground font-medium">
-              Based in Tokyo <span className="font-normal text-neutral-300">東京</span>
+              Based in India <span className="font-normal text-neutral-300"></span>
             </span>
-            <span className="font-sans text-[12px] md:text-[13px] text-neutral-400 font-normal">
-              Art Director + Framer Developer
+            <span className="inline-flex h-[1.35em] items-center justify-end overflow-hidden font-sans text-[12px] md:text-[13px] text-neutral-400 font-normal">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={disciplines[disciplineIndex]}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="whitespace-nowrap"
+                >
+                  {disciplines[disciplineIndex]}
+                </motion.span>
+              </AnimatePresence>
             </span>
           </div>
 
@@ -100,7 +122,7 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
               className="font-sans font-semibold tracking-[-0.01em] text-foreground text-[16px] inline-flex items-center gap-0.5"
             >
-              <span>Palmer</span>
+              <span>Harshita Upadhyay</span>
               <span className="text-[10px] font-normal align-top leading-none -mt-1">®</span>
             </Link>
             <button
@@ -131,10 +153,21 @@ export default function Navbar() {
 
           <div className="mt-auto border-t border-white/10 pt-6 flex flex-col gap-1 text-[13px]">
             <span className="font-sans font-medium text-foreground">
-              Based in Tokyo <span className="text-neutral-400">東京</span>
+              Based in India <span className="text-neutral-400">東京</span>
             </span>
-            <span className="font-sans text-neutral-400">
-              Art Director + Framer Developer
+            <span className="inline-flex h-[1.35em] items-center overflow-hidden font-sans text-neutral-400">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={disciplines[disciplineIndex]}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="whitespace-nowrap"
+                >
+                  {disciplines[disciplineIndex]}
+                </motion.span>
+              </AnimatePresence>
             </span>
           </div>
         </motion.div>

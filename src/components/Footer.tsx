@@ -1,89 +1,99 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Link from "next/link";
 
-const mono =
-  "font-mono uppercase tracking-[0.02em] text-[12px] leading-[1.2]";
-const ease = [0.2, 0.7, 0.1, 1] as const;
-const linkClass = "transition-opacity duration-200 hover:opacity-50";
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com/" },
+  { label: "Dribbble", href: "https://dribbble.com/" },
+  { label: "Framer", href: "https://www.framer.com/" },
+  { label: "Twitter", href: "https://x.com/" },
+];
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="overflow-hidden pb-8 pt-20 md:pt-28">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease }}
-        className="grid grid-cols-1 gap-6 md:grid-cols-[50%_24%_1fr]"
-      >
-        <span className={`${mono} md:col-start-2`}>CONTACT</span>
-        <p className={`${mono} md:col-start-3`}>
-          FOR ALL ENQUIRIES PLEASE CONTACT{" "}
-          <a href="mailto:info@titarvl.com" className={linkClass}>
-            INFO@TITARVL.COM
-          </a>
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease }}
-        className="mt-12 md:mt-16"
-      >
-        <svg
-          viewBox="0 0 1000 360"
-          className="block w-full"
-          role="img"
-          aria-label="TITARVL"
-        >
-          <text
-            x="0"
-            y="315"
-            textLength="1000"
-            lengthAdjust="spacingAndGlyphs"
-            fontSize="360"
-            className="font-sans font-medium fill-current"
-          >
-            HARSHITA
-          </text>
-        </svg>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease }}
-        className="relative z-10 -mt-[6vw] flex flex-col gap-2 md:grid md:grid-cols-[50%_24%_1fr]"
-      >
-        <span className={mono}>TITARVL</span>
-        <span className={`${mono} md:col-start-2`}>
-          © 2026 / ALL RIGHTS RESERVED
-        </span>
-        <div className="flex justify-between gap-4 md:col-start-3">
-          <span className={mono}>
-            <a href="/cookies-policy" className={linkClass}>
-              COOKIES POLICY
-            </a>{" "}
-            /{" "}
-            <a href="/privacy-policy" className={linkClass}>
-              PRIVACY POLICY
-            </a>
-          </span>
-          <span className={mono}>
-            <a href="#" className={linkClass}>
-              INSTAGRAM
-            </a>{" "}
-            /{" "}
-            <a href="#" className={linkClass}>
-              BEHANCE
-            </a>
-          </span>
+    <footer className="pt-16 pb-12 border-t border-white/10 select-none">
+      {/* Meta Header */}
+      <div className="flex items-center justify-between text-[11px] md:text-[12px] font-mono uppercase tracking-[0.05em] text-neutral-400 mb-8 md:mb-12">
+        <div className="flex items-center gap-2">
+          <span className="text-neutral-500">©</span>
+          <span>Final Section</span>
+          <span className="text-neutral-500 font-sans">クロージング</span>
         </div>
-      </motion.div>
+        <div className="flex items-center gap-2">
+          <span>(WDX® — 13)</span>
+          <span className="hidden sm:inline text-neutral-500">·</span>
+          <span className="hidden sm:inline">Studio Wrap</span>
+        </div>
+      </div>
+
+      {/* Tags row */}
+      <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-neutral-400 mb-8">
+        <span className="px-3 py-1 rounded-full bg-neutral-900 border border-white/10">
+          Independent
+        </span>
+        <span className="px-3 py-1 rounded-full bg-neutral-900 border border-white/10">
+          Overview
+        </span>
+        <span className="px-3 py-1 rounded-full bg-neutral-900 border border-white/10">
+          Multidisciplinary
+        </span>
+        <span className="px-3 py-1 rounded-full bg-neutral-900 border border-white/10">
+          Focused
+        </span>
+      </div>
+
+      {/* Main Statement */}
+      <div className="max-w-4xl mb-12 md:mb-16">
+        <p className="font-sans text-[clamp(1.5rem,3.4vw,2.75rem)] font-medium leading-[1.15] tracking-[-0.03em] text-foreground text-balance">
+          I build expressive, performance-driven websites by blending clean design and native development inside Framer to help creative teams and modern brands stand out with intention.
+        </p>
+      </div>
+
+      {/* Bottom Bar: Back to Top + Socials + Copyright */}
+      <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-[12px] md:text-[13px] font-mono text-neutral-400">
+        {/* Back to Top */}
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors uppercase tracking-widest cursor-pointer"
+        >
+          <span>[ BACK TO TOP ]</span>
+          <span>↑</span>
+        </button>
+
+        {/* Social Networks */}
+        <div className="flex items-center gap-4">
+          <span className="text-neutral-500 uppercase tracking-wider text-[11px]">
+            Networks:
+          </span>
+          <div className="flex items-center gap-3">
+            {socialLinks.map((s, idx) => (
+              <span key={s.label} className="inline-flex items-center gap-3">
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  {s.label}
+                </a>
+                {idx < socialLinks.length - 1 && (
+                  <span className="text-neutral-600">,</span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="text-neutral-500">
+          <span>©2025 Palmer® — All Rights Reserved</span>
+        </div>
+      </div>
     </footer>
   );
 }

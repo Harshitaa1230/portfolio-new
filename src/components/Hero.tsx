@@ -4,9 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const services = [
-  { id: "art-direction", label: "Art Direction", percent: 18 },
-  { id: "branding", label: "Branding", percent: 50 },
-  { id: "strategy", label: "Strategy", percent: 82 },
+  { id: "product-engineer", label: "Product Designer", percent: 18 },
+  { id: "design-engineer", label: "Design Engineer", percent: 50 },
+  { id: "uiux-designer", label: "UI/UX Designer", percent: 82 },
 ];
 
 export default function Hero() {
@@ -14,6 +14,7 @@ export default function Hero() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [showScreenshotMode, setShowScreenshotMode] = useState(false);
+  const [heartCursor, setHeartCursor] = useState<{ x: number; y: number } | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -51,11 +52,28 @@ export default function Hero() {
         {/* Left Column: Heading & White Services Slider */}
         <div className="lg:col-span-7 xl:col-span-8 flex flex-col justify-between h-full py-2">
           <h1 className="font-sans text-[clamp(2.1rem,3.8vw,3.6rem)] font-medium leading-[1.08] tracking-[-0.035em] text-foreground text-balance">
-            Pattern Dimensions<br />
-            and Moments that<br />
-            Connect and Leave a<br />
-            Bold イメージ.
+            I design and build clear<br />
+            user-friendly interfaces for SaaS<br />
+            web and mobile products<br />
+            <span
+              className="relative inline-block"
+              onMouseEnter={(e) => setHeartCursor({ x: e.clientX, y: e.clientY })}
+              onMouseMove={(e) => setHeartCursor({ x: e.clientX, y: e.clientY })}
+              onMouseLeave={() => setHeartCursor(null)}
+            >
+              दिल से.
+            </span>
           </h1>
+
+          {heartCursor && (
+            <span
+              aria-hidden
+              style={{ left: heartCursor.x + 18, top: heartCursor.y }}
+              className="pointer-events-none fixed z-[60] hidden -translate-y-1/2 animate-in fade-in whitespace-nowrap rounded-full border border-white/15 bg-black/85 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-white shadow-xl backdrop-blur-md duration-200 md:block md:text-[11px]"
+            >
+              With Heart <span className="text-rose-400">♥</span>
+            </span>
+          )}
 
           {/* Interactive White Services Slider Bar */}
           <div className="mt-8 lg:mt-auto pt-4 w-full">
@@ -174,11 +192,8 @@ export default function Hero() {
       {/* Monumental Typography: Akihiko™ */}
       <div className="w-full overflow-hidden select-none py-1 md:py-2">
         <div className="flex items-start justify-between w-full font-sans font-bold leading-[0.82] tracking-[-0.045em] text-foreground">
-          <span className="text-[clamp(3.8rem,14.5vw,13.5rem)] inline-block">
-            Akihiko
-          </span>
-          <span className="text-[clamp(1.2rem,4vw,3.6rem)] font-bold tracking-normal align-top leading-none mt-1 sm:mt-2 md:mt-3">
-            ™
+          <span className="inline-block whitespace-nowrap text-[clamp(1.5rem,9.2vw,9rem)] sm:text-[clamp(1.5rem,9.3vw,9rem)] lg:text-[clamp(1.5rem,9vw,9rem)] xl:text-[clamp(1.5rem,8.6vw,9rem)]">
+            Harshita Upadhyay
           </span>
         </div>
       </div>
@@ -190,12 +205,12 @@ export default function Hero() {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] md:text-[12px] font-mono uppercase tracking-[0.04em] text-neutral-400 pt-1 pb-1">
         {/* Left: Interface Version */}
         <div className="flex items-center gap-2">
-          <span>© 2024 / INTERFACE V2.1</span>
+          <span>© 2026 / harshi.designs</span>
         </div>
 
         {/* Center: Scroll Down Cue */}
         <a
-          href="#latest"
+          href="#works"
           className="flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors duration-200 group"
         >
           <span>SCROLL DOWN</span>
@@ -206,7 +221,7 @@ export default function Hero() {
 
         {/* Right: Role / Discipline */}
         <div className="flex items-center gap-2">
-          <span>DIGITAL DESIGNER</span>
+          <span>PRODUCT DESIGNER</span>
         </div>
       </div>
     </section>
