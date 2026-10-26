@@ -1,42 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import testimonialsData from "@/data/testimonials.json";
 
 const mono =
   "font-mono uppercase tracking-[0.02em] text-[12px] leading-[1.2]";
 const ease = [0.2, 0.7, 0.1, 1] as const;
 
 type Testimonial = {
+  id: string;
   quote: string;
-  name: string;
+  person: string;
   role: string;
-  company: string;
-  initials: string;
+  side: string;
 };
 
-const testimonials: Testimonial[] = [
-  {
-    quote:
-      "Working with TITARVL felt effortless. The typography, the pacing, the details — everything was considered, and the result speaks for itself.",
-    name: "MAYA LEE",
-    role: "CREATIVE DIRECTOR",
-    company: "ATELIER NOIR",
-    initials: "ML",
-  },
-  {
-    quote:
-      "Precise, calm and quietly confident. The identity system has held up across every touchpoint since launch.",
-    name: "JULIAN CARTER",
-    role: "FOUNDER",
-    company: "STUDIO ARC",
-    initials: "JC",
-  },
-];
+const testimonials: Testimonial[] = testimonialsData;
+const ROTATE_MS = 5000;
+
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
 
 export default function Testimonials() {
   const [index, setIndex] = useState(0);
   const active = testimonials[index];
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setIndex((current) => (current + 1) % testimonials.length);
+    }, ROTATE_MS);
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
     <section
@@ -81,16 +83,14 @@ export default function Testimonials() {
             <figcaption className="mt-8 flex flex-col items-center gap-3">
               <span
                 aria-hidden
-                className="flex h-[50px] w-[50px] items-center justify-center rounded-sm bg-neutral-700"
+                className="flex h-[50px] w-[50px] items-center justify-center rounded-sm bg-inverse-foreground/15"
               >
                 <span className={`${mono} text-inverse-foreground`}>
-                  {active.initials}
+                  {getInitials(active.person)}
                 </span>
               </span>
-              <span className={`${mono} font-medium`}>{active.name}</span>
-              <span className={`${mono} text-muted`}>
-                {active.role} — {active.company}
-              </span>
+              <span className={`${mono} font-medium`}>{active.person}</span>
+              <span className={`${mono} text-inverse-muted`}>{active.role}</span>
             </figcaption>
           </motion.figure>
         </AnimatePresence>

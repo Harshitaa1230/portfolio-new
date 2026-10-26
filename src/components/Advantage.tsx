@@ -8,8 +8,8 @@ const mono =
 const ease = [0.2, 0.7, 0.1, 1] as const;
 
 const stats = [
-  { index: "01", value: 10, suffix: "+", label: "CLIENT COLLABORATIONS" },
-  { index: "02", value: 5, suffix: "+", label: "YEARS IN PRACTICE" },
+  { index: "01", value: 200, suffix: "+", label: "UI Component User" },
+  { index: "02", value: 2, suffix: "+", label: "YEARS IN PRACTICE" },
   { index: "03", value: 25, suffix: "+", label: "DELIVERED WORKS" },
   { index: "04", value: 100, suffix: "%", label: "END-TO-END DELIVERY" },
 ];

@@ -25,10 +25,10 @@ const services: Service[] = [
     description:
       "Design and build of fast, accessible sites — from information architecture and typography systems through to production front-end.",
     images: [
-      { tone: "bg-neutral-200", text: "text-muted" },
+      { tone: "bg-tone-2", text: "text-muted" },
       { wide: true, tone: "bg-foreground", text: "text-inverse-foreground" },
-      { tone: "bg-neutral-300", text: "text-muted" },
-      { tone: "bg-neutral-800", text: "text-inverse-foreground" },
+      { tone: "bg-tone-3", text: "text-muted" },
+      { tone: "bg-tone-8", text: "text-inverse-foreground" },
     ],
   },
   {
@@ -38,10 +38,10 @@ const services: Service[] = [
     description:
       "Editorial layouts, campaign artwork and print collateral shaped by a strict, flexible typographic system.",
     images: [
-      { tone: "bg-neutral-100", text: "text-muted" },
-      { wide: true, tone: "bg-neutral-300", text: "text-muted" },
-      { tone: "bg-neutral-900", text: "text-inverse-foreground" },
-      { tone: "bg-neutral-200", text: "text-muted" },
+      { tone: "bg-tone-1", text: "text-muted" },
+      { wide: true, tone: "bg-tone-3", text: "text-muted" },
+      { tone: "bg-tone-9", text: "text-inverse-foreground" },
+      { tone: "bg-tone-2", text: "text-muted" },
     ],
   },
   {
@@ -51,10 +51,10 @@ const services: Service[] = [
     description:
       "Logotypes, marks and a considered visual language that scales across every touchpoint.",
     images: [
-      { tone: "bg-neutral-800", text: "text-inverse-foreground" },
-      { wide: true, tone: "bg-neutral-200", text: "text-muted" },
+      { tone: "bg-tone-8", text: "text-inverse-foreground" },
+      { wide: true, tone: "bg-tone-2", text: "text-muted" },
       { tone: "bg-foreground", text: "text-inverse-foreground" },
-      { tone: "bg-neutral-100", text: "text-muted" },
+      { tone: "bg-tone-1", text: "text-muted" },
     ],
   },
   {
@@ -64,10 +64,10 @@ const services: Service[] = [
     description:
       "Clear rules for type, colour, spacing and tone so the identity stays consistent as it grows.",
     images: [
-      { tone: "bg-neutral-300", text: "text-muted" },
-      { wide: true, tone: "bg-neutral-900", text: "text-inverse-foreground" },
-      { tone: "bg-neutral-200", text: "text-muted" },
-      { tone: "bg-neutral-800", text: "text-inverse-foreground" },
+      { tone: "bg-tone-3", text: "text-muted" },
+      { wide: true, tone: "bg-tone-9", text: "text-inverse-foreground" },
+      { tone: "bg-tone-2", text: "text-muted" },
+      { tone: "bg-tone-8", text: "text-inverse-foreground" },
     ],
   },
 ];

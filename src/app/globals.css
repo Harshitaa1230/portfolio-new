@@ -1,26 +1,147 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-background: #fefefe;
-  --color-foreground: #10100f;
-  --color-text-secondary: rgba(16, 16, 15, 0.55);
-  --color-border: rgba(16, 16, 15, 0.12);
+  --color-background: #e9ecf1;
+  --color-foreground: #2a2a2a;
+  --color-text-secondary: rgba(42, 42, 42, 0.55);
+  --color-border: rgba(42, 42, 42, 0.12);
   --color-light-surface: #f5f4f0;
-  --color-dark-surface: #10100f;
+  --color-dark-surface: #2a2a2a;
   --color-text-on-dark: #f5f4f0;
-  --color-muted: rgba(16, 16, 15, 0.55);
-  --color-inverse: #10100f;
+  --color-muted: rgba(42, 42, 42, 0.55);
+  --color-inverse: #2a2a2a;
   --color-inverse-foreground: #f5f4f0;
+  --color-inverse-muted: rgba(245, 244, 240, 0.6);
   --color-surface: #f5f4f0;
+
+  --color-tone-1: #f5f4f0;
+  --color-tone-2: #e6e5e1;
+  --color-tone-3: #d7d5d0;
+  --color-tone-8: #2f2f2f;
+  --color-tone-9: #1f1f1f;
 
   --font-sans: var(--font-inter-tight), "Helvetica Neue", Helvetica, Arial,
     sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo,
     monospace;
+  --font-matrix: var(--font-matrix-type), ui-monospace, monospace;
+  --font-nevera: var(--font-nevera-type), ui-monospace, monospace;
+  --font-mileast: var(--font-mileast-type), ui-monospace, monospace;
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  --color-background: #141518;
+  --color-foreground: #e7e9ee;
+  --color-text-secondary: rgba(231, 233, 238, 0.55);
+  --color-border: rgba(231, 233, 238, 0.14);
+  --color-light-surface: #202227;
+  --color-dark-surface: #0f1012;
+  --color-text-on-dark: #f5f4f0;
+  --color-muted: rgba(231, 233, 238, 0.55);
+  --color-inverse: #202227;
+  --color-inverse-foreground: #f5f4f0;
+  --color-inverse-muted: rgba(245, 244, 240, 0.6);
+  --color-surface: #202227;
+
+  --color-tone-1: #232529;
+  --color-tone-2: #2a2c31;
+  --color-tone-3: #33363b;
+  --color-tone-8: #d9dde4;
+  --color-tone-9: #eef0f4;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
+}
+
+:root {
+  color-scheme: light;
+  --header-height: 50px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 88px;
+  }
+}
+
+.hero-letter-mask {
+  display: inline-block;
+  clip-path: inset(-0.25em -0.6em 0 -0.6em);
+}
+
+.hero-letter {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  animation: hero-letter-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(0.2s + var(--i, 0) * 55ms);
+}
+
+.hero-rule {
+  background: var(--color-border);
+  transform-origin: center;
+  animation: hero-rule-sweep 2s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
+
+@keyframes hero-letter-rise {
+  from {
+    transform: translate3d(var(--spread, 0), 115%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-rule-sweep {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  35% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes works-carousel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 0.25rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
+
+  .hero-letter {
+    animation: none;
+    transform: none;
+  }
+
+  .hero-rule {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }

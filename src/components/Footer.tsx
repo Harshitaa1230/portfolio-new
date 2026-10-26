@@ -47,7 +47,7 @@ export default function Footer() {
             fontSize="360"
             className="font-sans font-medium fill-current"
           >
-            TITARVL
+            HARSHITA
           </text>
         </svg>
       </motion.div>
@@ -61,7 +61,7 @@ export default function Footer() {
       >
         <span className={mono}>TITARVL</span>
         <span className={`${mono} md:col-start-2`}>
-          © 2025 / ALL RIGHTS RESERVED
+          © 2026 / ALL RIGHTS RESERVED
         </span>
         <div className="flex justify-between gap-4 md:col-start-3">
           <span className={mono}>
