@@ -92,8 +92,8 @@ export default function Contact({ standalone = false }: { standalone?: boolean }
       id="contact"
       className={`flex w-full flex-col ${
         standalone
-          ? "mx-auto min-h-[calc(100svh-var(--header-height))] max-w-[1240px] px-5 py-10 sm:px-8 md:py-14 lg:px-12 lg:py-16"
-          : "px-[11px] py-20 md:py-28"
+          ? "min-h-[calc(100svh-var(--header-height))] py-10 md:py-14 lg:py-16"
+          : "py-20 md:py-28"
       }`}
     >
       <motion.div

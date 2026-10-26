@@ -43,7 +43,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="bg-inverse px-[11px] py-20 text-inverse-foreground md:py-28"
+      className="bg-inverse py-20 text-inverse-foreground md:py-28"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}

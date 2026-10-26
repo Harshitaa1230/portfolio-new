@@ -1,37 +1,33 @@
-import type { Metadata } from "next";
-import { Inter_Tight, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Background from "@/components/Background";
 
-const matrixType = localFont({
-  src: "../../public/matrixtype.bold.ttf",
-  weight: "700",
-  style: "normal",
-  variable: "--font-matrix-type",
+const interDisplay = localFont({
+  src: [
+    {
+      path: "../../public/fonts/InterDisplay-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/InterDisplay-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/InterDisplay-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/InterDisplay-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-inter-display",
   display: "swap",
-});
-
-const mileast = localFont({
-  src: "../../public/mileast.regular.otf",
-  variable: "--font-mileast-type",
-  display: "swap",
-});
-
-const nevera = localFont({
-  src: "../../public/Nevera-Regular.otf",
-  variable: "--font-nevera-type",
-  display: "swap",
-});
-
-const interTight = Inter_Tight({
-  variable: "--font-inter-tight",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -40,15 +36,20 @@ export const metadata: Metadata = {
     "A digital practice working at the intersection of brand identity and web.",
 };
 
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#000000",
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${geistMono.variable} ${matrixType.variable} ${nevera.variable} ${mileast.variable} h-full antialiased`}
+      className={`${interDisplay.variable} h-full antialiased`}
     >
       <body className="bg-background text-foreground font-sans flex min-h-full flex-col">
         <Background />
-        {children}
+        <div className="container-page flex flex-1 flex-col">{children}</div>
       </body>
     </html>
   );

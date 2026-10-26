@@ -121,7 +121,7 @@ function ServiceRow({ service }: { service: Service }) {
         </div>
       </div>
 
-      <div className="-mr-[11px] overflow-x-auto md:overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="overflow-x-auto md:overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {mode === "images" ? (
           <div className="flex w-max items-center gap-2">
             {service.images.map((image, imageIndex) => (
@@ -147,7 +147,7 @@ function ServiceRow({ service }: { service: Service }) {
 
 export default function Services() {
   return (
-    <section id="services" className="px-[11px] py-20 md:py-28">
+    <section id="services" className="py-20 md:py-28">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #141518;
+  --color-background: #000000;
   --color-foreground: #e7e9ee;
   --color-text-secondary: rgba(231, 233, 238, 0.55);
   --color-border: rgba(231, 233, 238, 0.14);
@@ -21,13 +21,16 @@
   --color-tone-8: #d9dde4;
   --color-tone-9: #eef0f4;
 
-  --font-sans: var(--font-inter-tight), "Helvetica Neue", Helvetica, Arial,
+  --font-sans: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
     sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo,
-    monospace;
-  --font-matrix: var(--font-matrix-type), ui-monospace, monospace;
-  --font-nevera: var(--font-nevera-type), ui-monospace, monospace;
-  --font-mileast: var(--font-mileast-type), ui-monospace, monospace;
+  --font-mono: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-matrix: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-nevera: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-mileast: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
 }
 
 body {
@@ -44,6 +47,37 @@ body {
 @media (min-width: 768px) {
   :root {
     --header-height: 88px;
+  }
+}
+
+.container-page {
+  width: 100%;
+  max-width: 1640px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 640px) {
+  .container-page {
+    padding-inline: 6vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-inline: 9vw;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-page {
+    padding-inline: 11.2vw;
+  }
+}
+
+@media (min-width: 1640px) {
+  .container-page {
+    padding-inline: 184px;
   }
 }
 

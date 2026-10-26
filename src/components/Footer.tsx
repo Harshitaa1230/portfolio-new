@@ -9,7 +9,7 @@ const linkClass = "transition-opacity duration-200 hover:opacity-50";
 
 export default function Footer() {
   return (
-    <footer className="overflow-hidden px-[11px] pb-8 pt-20 md:pt-28">
+    <footer className="overflow-hidden pb-8 pt-20 md:pt-28">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

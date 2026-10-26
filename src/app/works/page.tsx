@@ -19,7 +19,7 @@ export default function WorksPage() {
     <>
       <Navbar />
       <main className="flex flex-1 flex-col pt-24 md:pt-28">
-        <section className="px-[11px] pb-16 pt-8 md:pb-24 md:pt-12">
+        <section className="pb-16 pt-8 md:pb-24 md:pt-12">
           <div className={`${mono} flex items-center justify-between gap-4`}>
             <span>SELECTED WORK</span>
             <span>[{works.length}]</span>
@@ -37,7 +37,7 @@ export default function WorksPage() {
           </div>
         </section>
 
-        <section aria-labelledby="works-index" className="px-[11px] pb-24 md:pb-32">
+        <section aria-labelledby="works-index" className="pb-24 md:pb-32">
           <h2 id="works-index" className="sr-only">
             Works index
           </h2>
@@ -45,7 +45,7 @@ export default function WorksPage() {
           <WorksGrid works={works} />
         </section>
 
-        <section className="border-t border-border px-[11px] py-16 md:py-20">
+        <section className="border-t border-border py-16 md:py-20">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <p className="max-w-[34ch] font-sans text-[28px] font-medium uppercase leading-[0.95] tracking-[-0.03em] md:text-[40px]">
               HAVE A PROJECT IN MIND?

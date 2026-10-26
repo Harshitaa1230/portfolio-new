@@ -48,7 +48,7 @@ export default async function WorkPage({ params }: Props) {
       <Navbar />
       <main className="flex flex-1 flex-col pt-24 md:pt-28">
         <article className="flex flex-1 flex-col">
-          <header className="px-[11px] pt-8 md:pt-12">
+          <header className="pt-8 md:pt-12">
             <div className={`${mono} flex items-center justify-between gap-4`}>
               <Link
                 href="/works"
@@ -88,7 +88,7 @@ export default async function WorkPage({ params }: Props) {
             </dl>
           </header>
 
-          <figure className="mt-4 px-[11px]">
+          <figure className="mt-4">
             <div className="relative aspect-[16/9] overflow-hidden bg-light-surface">
               <Image
                 src={work.hero.src}
@@ -109,7 +109,7 @@ export default async function WorkPage({ params }: Props) {
             </figcaption>
           </figure>
 
-          <section className="px-[11px] py-16 md:py-24">
+          <section className="py-16 md:py-24">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-[50%_1fr]">
               <h2 className={mono}>ABOUT THE PROJECT</h2>
               <div className="max-w-[58ch]">
@@ -130,7 +130,7 @@ export default async function WorkPage({ params }: Props) {
 
           <section
             aria-label={`${work.name} gallery`}
-            className="px-[11px] pb-20 md:pb-28"
+            className="pb-20 md:pb-28"
           >
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
               {work.gallery.map((image, index) => (
@@ -168,7 +168,7 @@ export default async function WorkPage({ params }: Props) {
             </div>
           </section>
 
-          <section className="border-t border-border px-[11px] py-16 md:py-24">
+          <section className="border-t border-border py-16 md:py-24">
             <Link href={`/works/${next.slug}`} className="group block">
               <div
                 className={`${mono} flex items-center justify-between gap-4 text-muted`}
