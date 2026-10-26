@@ -83,14 +83,14 @@ export default function Testimonials() {
             <figcaption className="mt-8 flex flex-col items-center gap-3">
               <span
                 aria-hidden
-                className="flex h-[50px] w-[50px] items-center justify-center rounded-sm bg-neutral-700"
+                className="flex h-[50px] w-[50px] items-center justify-center rounded-sm bg-inverse-foreground/15"
               >
                 <span className={`${mono} text-inverse-foreground`}>
                   {getInitials(active.person)}
                 </span>
               </span>
               <span className={`${mono} font-medium`}>{active.person}</span>
-              <span className={`${mono} text-muted`}>{active.role}</span>
+              <span className={`${mono} text-inverse-muted`}>{active.role}</span>
             </figcaption>
           </motion.figure>
         </AnimatePresence>

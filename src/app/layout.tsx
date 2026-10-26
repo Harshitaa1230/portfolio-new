@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter_Tight, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -35,7 +36,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TITARVL — Creative Direction",
+  title: "Harshita Upadhyay | Product Designer | UI/UX Designer",
   description:
     "A digital practice working at the intersection of brand identity and web.",
 };
@@ -44,8 +45,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${interTight.variable} ${geistMono.variable} ${matrixType.variable} ${nevera.variable} ${mileast.variable} h-full antialiased`}
     >
+      <head>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(t===null&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d);}catch(e){}})();`}
+        </Script>
+      </head>
       <body className="bg-background text-foreground font-sans flex min-h-full flex-col">
         <Background />
         {children}

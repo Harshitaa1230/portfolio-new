@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const mono = "font-mono font-semibold uppercase tracking-[0.02em] leading-[1.2]";
 const linkClass = `${mono} text-[15px] transition-opacity duration-200 hover:opacity-50`;
@@ -70,7 +71,7 @@ export default function Navbar() {
           </nav>
         </div>
 
-        <div className="hidden flex-col items-end gap-1 md:flex">
+        <div className="hidden flex-col items-end gap-2 md:flex">
           <span
             role="timer"
             aria-live="off"
@@ -78,16 +79,24 @@ export default function Navbar() {
           >
             {time} {offset}
           </span>
-          <span className={`${mono} text-[12px] text-muted`}>BASED IN INDIA</span>
+          <div className="flex items-center gap-4">
+            <span className={`${mono} text-[12px] text-muted`}>
+              BASED IN INDIA
+            </span>
+            <ThemeToggle />
+          </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className={`${linkClass} md:hidden`}
-        >
-          [ MENU ]
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className={linkClass}
+          >
+            [ MENU ]
+          </button>
+        </div>
       </motion.div>
 
       {open && (
@@ -97,7 +106,8 @@ export default function Navbar() {
           transition={{ duration: 0.3, ease: [0.2, 0.7, 0.1, 1] }}
           className="fixed inset-0 z-50 flex flex-col bg-background/80 px-24 py-4 backdrop-blur-md md:hidden"
         >
-          <div className="flex items-start justify-end">
+          <div className="flex items-center justify-end gap-4">
+            <ThemeToggle />
             <button type="button" onClick={() => setOpen(false)} className={linkClass}>
               [ CLOSE ]
             </button>
