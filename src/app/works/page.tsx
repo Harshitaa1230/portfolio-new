@@ -4,28 +4,18 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Faq from "@/components/Faq";
 
-const categories = [
-  "All",
-  "Branding",
-  "Web Design",
-  "Creative Direction",
-  "Identity Design",
-  "Portfolio Site",
-];
-
-const allProjects = [
+const palmerProjects = [
   {
     id: "sonder-goods",
     number: "(01)",
     title: "Sonder Goods",
     category: "Branding",
     year: "2024",
-    image: "/palmer/wA52DtSvQDx894hqLZv4ezfKfz8.png",
-    aspect: "aspect-[16/10]",
-    desc: "A timeless brand identity and packaging system for an artisanal everyday goods brand.",
+    bgImage: "/palmer/wA52DtSvQDx894hqLZv4ezfKfz8.png",
+    insetImage: "/palmer/WSIwyrpSzX4O0fiESBwPTjSWBE.png",
+    aspect: "aspect-[698/749]",
+    status: "Completed",
   },
   {
     id: "halo-wear",
@@ -33,9 +23,10 @@ const allProjects = [
     title: "Halo Wear",
     category: "Web Design",
     year: "2024",
-    image: "/palmer/IhwR33YbJAKylGnbmoCW4maBHI.png",
-    aspect: "aspect-[16/10]",
-    desc: "High-performance digital flagship store with seamless transitions and 3D micro-interactions.",
+    bgImage: "/palmer/IhwR33YbJAKylGnbmoCW4maBHI.png",
+    insetImage: "/palmer/tkYEeCoj1udozbnzQynoaYqCI.png",
+    aspect: "aspect-[698/749]",
+    status: "Completed",
   },
   {
     id: "lucent-lab",
@@ -43,9 +34,10 @@ const allProjects = [
     title: "Lucent Lab",
     category: "Creative Direction",
     year: "2023",
-    image: "/palmer/G891sPJdh93gPfGSBboEt88Now.png",
-    aspect: "aspect-[16/10]",
-    desc: "Spatial atmosphere, kinetic typography and visual narrative for an audio-visual laboratory.",
+    bgImage: "/palmer/G891sPJdh93gPfGSBboEt88Now.png",
+    insetImage: "/palmer/YIi7jRxIe8p6gLtM1ZMNpJyVYs.jpeg",
+    aspect: "aspect-[698/749]",
+    status: "In Progress",
   },
   {
     id: "arc-bloom",
@@ -53,9 +45,10 @@ const allProjects = [
     title: "Arc & Bloom",
     category: "Identity Design",
     year: "2023",
-    image: "/palmer/kSBqNFitJQuBzXuk7tl1FqlAHhs.png",
-    aspect: "aspect-[16/10]",
-    desc: "Generative organic identity system rooted in architectural proportion and natural form.",
+    bgImage: "/palmer/kSBqNFitJQuBzXuk7tl1FqlAHhs.png",
+    insetImage: "/palmer/Jt7zqgTjQMYT15YvEkLGKiF9Cw.png",
+    aspect: "aspect-[698/749]",
+    status: "Completed",
   },
   {
     id: "atelier-nara",
@@ -63,121 +56,366 @@ const allProjects = [
     title: "Atelier Nara",
     category: "Portfolio Site",
     year: "2023",
-    image: "/palmer/svmMd86RbsKfib7KzvpKAUsHrk.png",
-    aspect: "aspect-[16/10]",
-    desc: "Minimalist portfolio experience for a Tokyo-based interior architecture practice.",
+    bgImage: "/palmer/svmMd86RbsKfib7KzvpKAUsHrk.png",
+    insetImage: "/palmer/7WVAcnCw5jrTdcET3CmMrpU7gf0.png",
+    aspect: "aspect-[698/749]",
+    status: "In Progress",
+  },
+];
+
+const faqs = [
+  {
+    id: "01",
+    question: "What services do you offer?",
+    answer:
+      "I provide creative direction, branding, UI/UX design, and Framer development tailored for modern digital experiences.",
+  },
+  {
+    id: "02",
+    question: "What is your typical turnaround time?",
+    answer:
+      "Turnaround depends on the project scope, but most sites are delivered within 2–4 weeks from initial kickoff.",
+  },
+  {
+    id: "03",
+    question: "Do you only work in Framer?",
+    answer:
+      "While Framer is my primary tool, I also work with Figma, Webflow, and occasionally deliver HTML/CSS code.",
+  },
+  {
+    id: "04",
+    question: "Can you handle both design and build?",
+    answer:
+      "Absolutely. I specialize in merging design and development to create clean, efficient, and cohesive results.",
+  },
+  {
+    id: "05",
+    question: "Do you offer brand strategy too?",
+    answer:
+      "Yes, I offer strategy sessions to align design with business goals, especially for startups and creative teams.",
+  },
+  {
+    id: "06",
+    question: "What’s your process like?",
+    answer:
+      "Each project begins with a discovery call, followed by design phases, client reviews, and hands-on development.",
   },
 ];
 
 export default function WorksPage() {
-  const [filter, setFilter] = useState("All");
+  const [openFaq, setOpenFaq] = useState<string | null>("01");
 
-  const filtered =
-    filter === "All"
-      ? allProjects
-      : allProjects.filter((p) => p.category === filter);
+  const toggleFaq = (id: string) => {
+    setOpenFaq((prev) => (prev === id ? null : id));
+  };
+
+  const handleScrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <>
       <Navbar />
-      <main className="flex flex-1 flex-col pt-24 md:pt-28">
-        <section className="pb-16 pt-8 md:pb-24 md:pt-12 select-none">
-          {/* Meta Header */}
-          <div className="flex items-center justify-between text-[11px] md:text-[12px] font-mono uppercase tracking-[0.05em] text-neutral-400 mb-8 md:mb-12">
-            <div className="flex items-center gap-2">
-              <span className="text-neutral-500">©</span>
-              <span>All Works</span>
-              <span className="text-neutral-500 font-sans">アーカイブ</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>(WDX® — ARCHIVE)</span>
-              <span className="hidden sm:inline text-neutral-500">·</span>
-              <span className="hidden sm:inline">[{allProjects.length} Projects]</span>
-            </div>
-          </div>
 
-          {/* Title & Description */}
-          <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 pb-12 md:pb-16 border-b border-white/10">
-            <div>
-              <h1 className="font-sans text-[clamp(2.8rem,8vw,7.5rem)] font-bold tracking-[-0.04em] leading-none text-foreground uppercase">
-                All Works
-              </h1>
-            </div>
+      <main className="min-h-screen bg-black text-white pt-24 md:pt-32 select-none overflow-x-clip">
+        {/* ── Main Work Split Layout ─────────────────────────── */}
+        <div className="max-w-[1480px] mx-auto px-6 md:px-10 pb-20">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start relative">
+            {/* Sticky Left Column */}
+            <aside className="w-full lg:w-[45%] lg:sticky lg:top-32 self-stretch lg:self-start pt-4 z-10">
+              <div className="lg:sticky lg:top-32 flex items-start gap-4">
+                <h1 className="font-sans text-[clamp(3.5rem,9.5vw,10rem)] font-bold tracking-[-0.04em] leading-[0.92] text-white whitespace-pre-line uppercase">
+                  All{"\n"}Works
+                </h1>
+                <span className="font-sans text-[clamp(1.5rem,3vw,3rem)] font-medium text-white/90 mt-2">
+                  ({palmerProjects.length})
+                </span>
+              </div>
+            </aside>
 
-            <p className="max-w-md font-sans text-[14px] md:text-[15px] text-neutral-400 leading-relaxed">
-              Curated selection of digital products, brand identities, and editorial web experiences crafted with intention and structural discipline.
-            </p>
-          </div>
-
-          {/* Filter Bar */}
-          <div className="flex items-center gap-2 overflow-x-auto py-6 border-b border-white/10 text-[12px] font-mono uppercase tracking-wider text-neutral-400 scrollbar-none">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setFilter(cat)}
-                className={`px-3.5 py-1.5 rounded-full transition-all shrink-0 cursor-pointer ${
-                  filter === cat
-                    ? "bg-white text-black font-semibold"
-                    : "border border-white/10 bg-neutral-900/60 hover:border-white/20 text-neutral-300"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mt-12">
-            {filtered.map((item) => (
-              <div key={item.id} className="group flex flex-col justify-between">
-                <div
-                  className={`relative w-full ${item.aspect} rounded-2xl md:rounded-3xl overflow-hidden bg-neutral-900 border border-white/10 shadow-2xl group-hover:border-white/30 transition-all duration-500`}
+            {/* Right Scrollable Cards Feed */}
+            <div className="w-full lg:w-[55%] flex flex-col gap-16 lg:border-l lg:border-white/15 lg:pl-10 pt-4">
+              {palmerProjects.map((project, idx) => (
+                <Link
+                  key={project.id}
+                  href={`/works/${project.id}`}
+                  className="group flex flex-col cursor-pointer"
                 >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                  />
+                  {/* Card Media Container */}
+                  <div
+                    className={`relative w-full ${project.aspect} rounded-xl overflow-hidden bg-neutral-950 border border-white/10`}
+                  >
+                    {/* Background Full-Bleed Image */}
+                    <Image
+                      src={project.bgImage}
+                      alt={project.title}
+                      fill
+                      priority={idx === 0}
+                      className="object-cover object-center group-hover:scale-[1.025] transition-transform duration-700 ease-out"
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                    />
 
-                  {/* Top Badge */}
-                  <div className="absolute top-4 left-4 z-20">
-                    <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[11px] font-mono uppercase tracking-wider text-neutral-200">
-                      {item.category}
-                    </span>
+                    {/* Centered Floating Inset Thumbnail */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 rounded-xl overflow-hidden shadow-[0_24px_50px_rgba(0,0,0,0.7)] group-hover:scale-105 group-hover:shadow-[0_32px_65px_rgba(0,0,0,0.85)] transition-all duration-500 ease-out z-10 border border-white/10">
+                      <Image
+                        src={project.insetImage}
+                        alt=""
+                        fill
+                        className="object-cover object-center"
+                        sizes="(min-width: 1024px) 25vw, 50vw"
+                      />
+                    </div>
+
+                    {/* Center Horizontal Hairline Banner on Hover */}
+                    <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-white/90 z-20 opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-500 origin-center pointer-events-none" />
                   </div>
-                </div>
 
-                <div className="pt-4 flex flex-col gap-1">
-                  <div className="flex items-center justify-between text-[16px] md:text-[18px] font-sans font-semibold">
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-[12px] text-neutral-500">
-                        {item.number}
-                      </span>
-                      <span className="text-foreground group-hover:text-white transition-colors">
-                        {item.title}
+                  {/* Card Bottom Meta Bar */}
+                  <div className="pt-4 flex items-center justify-between text-[18px] md:text-[19px] font-medium tracking-tight">
+                    <div className="flex items-center gap-3">
+                      <div className="h-[25px] overflow-hidden flex flex-col">
+                        <span className="text-white group-hover:-translate-y-[25px] transition-transform duration-300 ease-out">
+                          {project.title}
+                        </span>
+                        <span className="text-neutral-300 group-hover:-translate-y-[25px] transition-transform duration-300 ease-out">
+                          {project.title}
+                        </span>
+                      </div>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-widest border ${
+                          project.status === "Completed"
+                            ? "border-emerald-400/40 text-emerald-300"
+                            : "border-amber-400/40 text-amber-300"
+                        }`}
+                      >
+                        {project.status}
                       </span>
                     </div>
-                    <span className="font-mono text-[12px] text-neutral-400 font-normal">
-                      {item.year}
+
+                    <span className="font-mono text-[16px] text-white/80">
+                      {project.number}
                     </span>
                   </div>
+                </Link>
+              ))}
+            </div>
+          </div>
 
-                  <p className="font-sans text-[13px] md:text-[14px] text-neutral-400 line-clamp-2 mt-1">
-                    {item.desc}
-                  </p>
-                </div>
+          {/* ── Clarifying Deliverables FAQ Section ────────────── */}
+          <section className="mt-28 md:mt-36 pt-8 border-t border-white/15">
+            {/* Meta Line */}
+            <div className="flex items-center justify-between text-[11px] md:text-[12px] font-mono uppercase tracking-[0.08em] text-neutral-400 pb-6 border-b border-white/15">
+              <div className="flex items-center gap-6">
+                <span className="text-white font-semibold">
+                  © HELP CENTER ヘルプ
+                </span>
+                <span className="text-neutral-500">(WDX® — 01)</span>
               </div>
-            ))}
+              <span className="text-neutral-500">CLARIFICATIONS</span>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pt-12 items-start">
+              {/* Left Column: Portrait & Headline */}
+              <div className="lg:col-span-5 flex flex-col items-start">
+                <div className="relative w-[136px] h-[180px] rounded-xl overflow-hidden mb-8 border border-white/10">
+                  <Image
+                    src="/palmer/kDDFdQi11eufzZl2QNW6DZQPHc.png"
+                    alt="Help Center Portrait"
+                    fill
+                    className="object-cover object-center"
+                    sizes="136px"
+                  />
+                </div>
+
+                <h2 className="font-sans text-[clamp(1.75rem,3.2vw,3rem)] font-medium leading-[1.15] tracking-tight text-white whitespace-pre-line">
+                  Clarifying Deliverable&apos;s Before They Begin{"\n"}with Real
+                  Process and Honest アンサー.
+                </h2>
+              </div>
+
+              {/* Right Column: Accordion */}
+              <div className="lg:col-span-7 flex flex-col">
+                {faqs.map((faq) => {
+                  const isOpen = openFaq === faq.id;
+                  return (
+                    <div
+                      key={faq.id}
+                      className="border-t border-white/15 last:border-b"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => toggleFaq(faq.id)}
+                        className="w-full flex items-center justify-between py-6 text-left cursor-pointer group"
+                        aria-expanded={isOpen}
+                      >
+                        <span className="font-mono text-[13px] text-neutral-500 w-12 shrink-0">
+                          {faq.id}
+                        </span>
+                        <span className="font-sans text-[18px] md:text-[22px] font-medium text-white flex-1 pr-4 group-hover:text-neutral-200 transition-colors">
+                          {faq.question}
+                        </span>
+                        <span
+                          className={`text-2xl font-light text-neutral-400 transition-transform duration-300 shrink-0 ${
+                            isOpen ? "rotate-45" : "rotate-0"
+                          }`}
+                        >
+                          +
+                        </span>
+                      </button>
+
+                      <div
+                        className={`overflow-hidden transition-all duration-400 ease-out ${
+                          isOpen ? "max-h-60 opacity-100 pb-6" : "max-h-0 opacity-0"
+                        }`}
+                      >
+                        <p className="font-sans text-[15px] md:text-[16px] text-neutral-400 leading-relaxed pl-12 max-w-xl">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* ── 4-Pillar Strip ─────────────────────────────────── */}
+        <section className="w-full bg-white text-black py-7 my-16 select-none border-y border-neutral-300">
+          <div className="max-w-[1480px] mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 divide-x divide-black/15">
+            <div className="text-center font-mono text-[13px] md:text-[14px] font-bold tracking-[0.14em] uppercase py-2">
+              INDEPENDENT
+            </div>
+            <div className="text-center font-mono text-[13px] md:text-[14px] font-bold tracking-[0.14em] uppercase py-2">
+              OVERVIEW
+            </div>
+            <div className="text-center font-mono text-[13px] md:text-[14px] font-bold tracking-[0.14em] uppercase py-2 border-t lg:border-t-0 border-black/15">
+              MULTIDISCIPLINARY
+            </div>
+            <div className="text-center font-mono text-[13px] md:text-[14px] font-bold tracking-[0.14em] uppercase py-2 border-t lg:border-t-0 border-black/15">
+              FOCUSED
+            </div>
           </div>
         </section>
 
-        {/* Integrated FAQ */}
-        <Faq />
+        {/* ── Closing Studio Wrap ─────────────────────────── */}
+        <section className="max-w-[1480px] mx-auto px-6 md:px-10 pb-12 pt-6">
+          <div className="flex items-center justify-between text-[11px] md:text-[12px] font-mono uppercase tracking-[0.08em] text-neutral-400 pb-6 border-b border-white/15">
+            <div className="flex items-center gap-6">
+              <span className="text-white font-semibold">
+                © FINAL SECTION クロージング
+              </span>
+              <span className="text-neutral-500">(WDX® — 12)</span>
+            </div>
+            <span className="text-neutral-500">STUDIO WRAP</span>
+          </div>
+
+          <p className="font-sans text-[clamp(1.5rem,3.4vw,2.75rem)] font-medium leading-[1.25] tracking-tight text-white max-w-4xl my-12">
+            I build expressive, performance-driven websites by blending clean
+            design and native development inside Framer to help creative teams and
+            modern brands stand out with intention.
+          </p>
+
+          <div className="mb-14">
+            <button
+              type="button"
+              onClick={handleScrollToTop}
+              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-white/30 bg-white/5 hover:bg-white hover:text-black font-mono text-[12px] md:text-[13px] font-semibold tracking-wider uppercase transition-all duration-300 cursor-pointer"
+            >
+              BACK TO TOP ↑
+            </button>
+          </div>
+
+          {/* Bottom Nav Footer */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-10 border-t border-white/15 text-[14px] text-neutral-400">
+            <div>
+              <h5 className="font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-3">
+                Quick Links
+              </h5>
+              <div className="flex gap-2 flex-wrap">
+                <Link href="/" className="text-white hover:underline">
+                  Home
+                </Link>
+                ,
+                <Link href="/gallery" className="text-white hover:underline">
+                  Gallery
+                </Link>
+                ,
+                <Link href="/works" className="text-white hover:underline">
+                  Work
+                </Link>
+                ,
+                <Link href="/contact" className="text-white hover:underline">
+                  Contact
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-white">
+                Based in Tokyo 東京
+                <br />
+                <span className="text-neutral-500 text-[13px]">
+                  Art Director + Framer Developer
+                </span>
+              </p>
+            </div>
+
+            <div>
+              <h5 className="font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-3">
+                Networks
+              </h5>
+              <div className="flex gap-2 flex-wrap">
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-white hover:underline"
+                >
+                  Instagram
+                </a>
+                ,
+                <a
+                  href="https://dribbble.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-white hover:underline"
+                >
+                  Dribbble
+                </a>
+                ,
+                <a
+                  href="https://framer.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-white hover:underline"
+                >
+                  Framer
+                </a>
+                ,
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-white hover:underline"
+                >
+                  Twitter
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Giant Watermark */}
+          <div
+            className="font-sans text-[clamp(5rem,20vw,18rem)] font-extrabold tracking-tight text-white/[0.04] text-center select-none pointer-events-none leading-[0.8] mt-16 -mb-6"
+            aria-hidden="true"
+          >
+            ©2026
+          </div>
+        </section>
       </main>
-      <Footer />
     </>
   );
 }

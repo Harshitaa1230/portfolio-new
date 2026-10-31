@@ -52,32 +52,32 @@ body {
 
 .container-page {
   width: 100%;
-  max-width: 1640px;
+  max-width: 100%;
   margin-inline: auto;
   padding-inline: 20px;
 }
 
 @media (min-width: 640px) {
   .container-page {
-    padding-inline: 6vw;
+    padding-inline: 4vw;
   }
 }
 
 @media (min-width: 1024px) {
   .container-page {
-    padding-inline: 9vw;
+    padding-inline: 5vw;
   }
 }
 
 @media (min-width: 1280px) {
   .container-page {
-    padding-inline: 11.2vw;
+    padding-inline: 6vw;
   }
 }
 
 @media (min-width: 1640px) {
   .container-page {
-    padding-inline: 184px;
+    padding-inline: 6vw;
   }
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const articles = [
   {
@@ -44,8 +45,7 @@ export default function Articles() {
       <div className="flex items-center justify-between text-[11px] md:text-[12px] font-mono uppercase tracking-[0.05em] text-neutral-400 mb-8 md:mb-12">
         <div className="flex items-center gap-2">
           <span className="text-neutral-500">©</span>
-          <span>Visual Journal</span>
-          <span className="text-neutral-500 font-sans">ジャーナル</span>
+          <span>Articles</span>
         </div>
         <div className="flex items-center gap-2">
           <span>(WDX® — 11)</span>
@@ -55,17 +55,27 @@ export default function Articles() {
       </div>
 
       {/* Headline */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-white/10">
-        <h2 className="font-sans text-[clamp(2.4rem,6vw,5.5rem)] font-bold tracking-[-0.04em] leading-none text-foreground uppercase">
-          Featured Article©
-        </h2>
-        <span className="font-mono text-[12px] text-neutral-400 uppercase tracking-widest">
-          [ EDITORIAL PERSPECTIVES ]
-        </span>
+      <div className="pb-6 md:pb-8 border-b border-white/10 overflow-hidden">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          className="flex whitespace-nowrap"
+        >
+          {[0, 1].map((i) => (
+            <div key={i} className="flex items-center">
+              <h2 className="whitespace-nowrap font-sans text-[clamp(2.5rem,10vw,8rem)] font-bold tracking-[-0.04em] leading-none text-foreground uppercase pr-16 md:pr-28">
+                Featured Article©
+              </h2>
+              <h2 className="whitespace-nowrap font-sans text-[clamp(2.5rem,10vw,8rem)] font-bold tracking-[-0.04em] leading-none text-foreground uppercase pr-16 md:pr-28">
+                Featured Article©
+              </h2>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       {/* Articles Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 md:mt-14">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 md:mt-8">
         {articles.map((item) => (
           <div
             key={item.id}

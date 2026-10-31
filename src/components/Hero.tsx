@@ -4,13 +4,13 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const services = [
-  { id: "product-engineer", label: "Product Designer", percent: 18 },
+  { id: "product-designer", label: "Product Designer", percent: 18 },
   { id: "design-engineer", label: "Design Engineer", percent: 50 },
   { id: "uiux-designer", label: "UI/UX Designer", percent: 82 },
 ];
 
 export default function Hero() {
-  const [activeService, setActiveService] = useState(1); // default "Branding" with knob in center
+  const [activeService, setActiveService] = useState(0); // default first service
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [showScreenshotMode, setShowScreenshotMode] = useState(false);
@@ -48,9 +48,9 @@ export default function Hero() {
       className="relative flex min-h-[calc(100svh-var(--header-height,70px))] flex-col justify-between pt-20 md:pt-24 pb-3 md:pb-5 select-none"
     >
       {/* Middle Hero Section: Headline + Interactive Slider + Video Card */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center flex-1">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start flex-1">
         {/* Left Column: Heading & White Services Slider */}
-        <div className="lg:col-span-7 xl:col-span-8 flex flex-col justify-between h-full py-2">
+        <div className="lg:col-span-7 xl:col-span-7 flex flex-col justify-between h-full pt-0 pb-2">
           <h1 className="font-sans text-[clamp(2.1rem,3.8vw,3.6rem)] font-medium leading-[1.08] tracking-[-0.035em] text-foreground text-balance">
             I design and build clear<br />
             user-friendly interfaces for SaaS<br />
@@ -76,7 +76,7 @@ export default function Hero() {
           )}
 
           {/* Interactive White Services Slider Bar */}
-          <div className="mt-8 lg:mt-auto pt-4 w-full">
+          <div className="mt-6 lg:mt-10 pt-4 w-full">
             <div
               role="slider"
               tabIndex={0}
@@ -86,17 +86,17 @@ export default function Hero() {
               aria-valuenow={activeService}
               aria-valuetext={services[activeService].label}
               onKeyDown={handleKeyDown}
-              className="relative w-full h-8 md:h-9 bg-white text-black flex items-center shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white"
+              className="relative -ml-4 sm:-ml-[4vw] lg:-ml-[5vw] xl:-ml-[6vw] w-screen h-8 md:h-9 bg-white text-black flex items-center shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white"
             >
               {/* Slider Track Labels */}
-              <div className="w-full flex items-center justify-between px-4 sm:px-8 md:px-12 text-[12px] md:text-[13px] font-sans font-semibold tracking-[-0.01em]">
+              <div className="w-full grid grid-cols-3 px-8 sm:px-[calc(4vw+2rem)] lg:px-[calc(5vw+3rem)] xl:px-[calc(6vw+3rem)] text-[12px] md:text-[13px] font-sans font-semibold tracking-[-0.01em]">
                 {services.map((item, index) => (
                   <button
                     key={item.id}
                     type="button"
                     onClick={() => handleSliderClick(index)}
-                    className={`relative z-10 py-1 transition-opacity duration-200 cursor-pointer ${
-                      activeService === index ? "opacity-100 font-bold" : "opacity-80 hover:opacity-100"
+                    className={`relative z-10 py-1 transition-opacity duration-200 cursor-pointer opacity-100 font-bold ${
+                      index === 0 ? "justify-self-start" : index === 1 ? "justify-self-center" : "justify-self-end"
                     }`}
                   >
                     {item.label}
@@ -106,7 +106,7 @@ export default function Hero() {
 
               {/* Slider Knob / Thumb */}
               <motion.div
-                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none z-20 flex items-center justify-center"
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none z-20 hidden"
                 animate={{ left: `${services[activeService].percent}%` }}
                 transition={{ type: "spring", stiffness: 450, damping: 32 }}
               >
@@ -119,8 +119,8 @@ export default function Hero() {
         </div>
 
         {/* Right Column: Dark Rounded Video Card */}
-        <div className="lg:col-span-5 xl:col-span-4 w-full flex justify-end">
-          <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-2xl md:rounded-3xl bg-[#18181b] border border-white/10 overflow-hidden shadow-2xl flex flex-col items-center justify-center group">
+        <div className="lg:col-span-5 xl:col-span-5 w-full flex justify-end -mr-4 sm:-mr-[4vw] lg:-mr-[5vw] xl:-mr-[6vw] lg:-mt-2">
+          <div className="relative w-full aspect-[16/9] rounded-l-2xl md:rounded-l-3xl rounded-r-none bg-[#18181b] border border-white/10 border-r-0 overflow-hidden shadow-2xl flex flex-col items-center justify-center group">
             {/* Template Fallback View (Matching Screenshot Exact Look) */}
             {showScreenshotMode ? (
               <div className="flex flex-col items-center justify-center p-8 text-center select-none animate-in fade-in duration-300">
@@ -177,7 +177,7 @@ export default function Hero() {
             <button
               type="button"
               onClick={() => setShowScreenshotMode(!showScreenshotMode)}
-              className="absolute top-3 right-3 z-30 px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-[9px] font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+              className="hidden"
               title="Toggle preview mode"
             >
               {showScreenshotMode ? "Live Reel" : "Original View"}
@@ -189,20 +189,20 @@ export default function Hero() {
       {/* Horizontal Divider Line */}
       <div aria-hidden className="w-full h-px bg-white/15 my-4 md:my-5" />
 
-      {/* Monumental Typography: Akihiko™ */}
-      <div className="w-full overflow-hidden select-none py-1 md:py-2">
-        <div className="flex items-start justify-between w-full font-sans font-bold leading-[0.82] tracking-[-0.045em] text-foreground">
-          <span className="inline-block whitespace-nowrap text-[clamp(1.5rem,9.2vw,9rem)] sm:text-[clamp(1.5rem,9.3vw,9rem)] lg:text-[clamp(1.5rem,9vw,9rem)] xl:text-[clamp(1.5rem,8.6vw,9rem)]">
+      {/* Monumental Typography */}
+      <div className="w-full overflow-visible select-none py-2 md:py-3">
+        <div className="flex items-center justify-center w-full font-sans font-bold leading-none tracking-[-0.045em] text-foreground">
+          <span className="inline-block whitespace-nowrap text-[clamp(2rem,12vw,12rem)]">
             Harshita Upadhyay
           </span>
         </div>
       </div>
 
       {/* Horizontal Divider Line */}
-      <div aria-hidden className="w-full h-px bg-white/15 my-3 md:my-4" />
+      <div aria-hidden className="w-full h-px bg-white/15 my-2 md:my-3" />
 
       {/* Bottom Metadata Status Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] md:text-[12px] font-mono uppercase tracking-[0.04em] text-neutral-400 pt-1 pb-1">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] md:text-[12px] font-mono tracking-[0.04em] text-neutral-400 pt-1 pb-1">
         {/* Left: Interface Version */}
         <div className="flex items-center gap-2">
           <span>© 2026 / harshi.designs</span>

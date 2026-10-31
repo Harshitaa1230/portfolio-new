@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-background/85 backdrop-blur-md">
-      <div className="container-page">
+      <div className="w-full px-4 sm:px-[4vw] lg:px-[5vw] xl:px-[6vw]">
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export default function Navbar() {
       </div>
 
       {/* Hairline Divider Rule */}
-      <div aria-hidden className="container-page">
+      <div aria-hidden className="w-full px-4 sm:px-[4vw] lg:px-[5vw] xl:px-[6vw]">
         <div className="h-px w-full origin-bottom scale-y-50 bg-white/15" />
       </div>
 
@@ -114,7 +114,7 @@ export default function Navbar() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="container-page fixed inset-0 z-50 flex flex-col bg-background/95 py-5 backdrop-blur-xl md:hidden"
+          className="w-full px-4 sm:px-[4vw] lg:px-[5vw] xl:px-[6vw] fixed inset-0 z-50 flex flex-col bg-background/95 py-5 backdrop-blur-xl md:hidden"
         >
           <div className="flex items-center justify-between">
             <Link

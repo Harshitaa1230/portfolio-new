@@ -34,6 +34,11 @@ export const metadata: Metadata = {
   title: "Harshita Upadhyay | Product Designer | UI/UX Designer",
   description:
     "A Product & UI/UX Designer crafting digital experiences for SaaS, EdTech, e-commerce, and cybersecurity products.",
+  icons: {
+    icon: "/profile/avatar.jpeg",
+    shortcut: "/profile/avatar.jpeg",
+    apple: "/profile/avatar.jpeg",
+  },
 };
 
 export const viewport: Viewport = {
@@ -49,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="bg-background text-foreground font-sans flex min-h-full flex-col">
         <Background />
-        <div className="container-page flex flex-1 flex-col">{children}</div>
+        <div className="w-full flex flex-1 flex-col px-4 sm:px-[4vw] lg:px-[5vw] xl:px-[6vw]">{children}</div>
       </body>
     </html>
   );
