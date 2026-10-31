@@ -1,61 +1,60 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import { Inter_Tight, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Background from "@/components/Background";
 
-const matrixType = localFont({
-  src: "../../public/matrixtype.bold.ttf",
-  weight: "700",
-  style: "normal",
-  variable: "--font-matrix-type",
+const interDisplay = localFont({
+  src: [
+    {
+      path: "../../public/fonts/InterDisplay-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/InterDisplay-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/InterDisplay-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/InterDisplay-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-inter-display",
   display: "swap",
-});
-
-const mileast = localFont({
-  src: "../../public/mileast.regular.otf",
-  variable: "--font-mileast-type",
-  display: "swap",
-});
-
-const nevera = localFont({
-  src: "../../public/Nevera-Regular.otf",
-  variable: "--font-nevera-type",
-  display: "swap",
-});
-
-const interTight = Inter_Tight({
-  variable: "--font-inter-tight",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Harshita Upadhyay | Product Designer | UI/UX Designer",
   description:
-    "A digital practice working at the intersection of brand identity and web.",
+    "A Product & UI/UX Designer crafting digital experiences for SaaS, EdTech, e-commerce, and cybersecurity products.",
+  icons: {
+    icon: "/profile/avatar.jpeg",
+    shortcut: "/profile/avatar.jpeg",
+    apple: "/profile/avatar.jpeg",
+  },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={`${interTight.variable} ${geistMono.variable} ${matrixType.variable} ${nevera.variable} ${mileast.variable} h-full antialiased`}
+      className={`${interDisplay.variable} h-full antialiased`}
     >
-      <head>
-        <Script id="theme-init" strategy="beforeInteractive">
-          {`(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(t===null&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d);}catch(e){}})();`}
-        </Script>
-      </head>
       <body className="bg-background text-foreground font-sans flex min-h-full flex-col">
         <Background />
-        {children}
+        <div className="w-full flex flex-1 flex-col px-4 sm:px-[4vw] lg:px-[5vw] xl:px-[6vw]">{children}</div>
       </body>
     </html>
   );

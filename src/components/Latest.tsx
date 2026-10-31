@@ -35,7 +35,7 @@ export default function Latest({ mockups }: { mockups: MockupMedia[] }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease }}
-        className="flex items-end justify-between gap-4 px-[11px]"
+        className="flex items-end justify-between gap-4"
       >
         <h2 className="font-sans text-[48px] font-medium uppercase leading-[0.95] tracking-[-0.04em] md:text-[72px]">
           WORKS
@@ -93,7 +93,7 @@ export default function Latest({ mockups }: { mockups: MockupMedia[] }) {
                         />
                       )}
                     </div>
-                    <div className={`${mono} mt-3 flex items-center justify-between px-[11px]`}>
+                    <div className={`${mono} mt-3 flex items-center justify-between`}>
                       <span>{project.index}</span>
                     </div>
                   </Link>

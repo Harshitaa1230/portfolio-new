@@ -1,40 +1,7 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
-  --color-background: #e9ecf1;
-  --color-foreground: #2a2a2a;
-  --color-text-secondary: rgba(42, 42, 42, 0.55);
-  --color-border: rgba(42, 42, 42, 0.12);
-  --color-light-surface: #f5f4f0;
-  --color-dark-surface: #2a2a2a;
-  --color-text-on-dark: #f5f4f0;
-  --color-muted: rgba(42, 42, 42, 0.55);
-  --color-inverse: #2a2a2a;
-  --color-inverse-foreground: #f5f4f0;
-  --color-inverse-muted: rgba(245, 244, 240, 0.6);
-  --color-surface: #f5f4f0;
-
-  --color-tone-1: #f5f4f0;
-  --color-tone-2: #e6e5e1;
-  --color-tone-3: #d7d5d0;
-  --color-tone-8: #2f2f2f;
-  --color-tone-9: #1f1f1f;
-
-  --font-sans: var(--font-inter-tight), "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo,
-    monospace;
-  --font-matrix: var(--font-matrix-type), ui-monospace, monospace;
-  --font-nevera: var(--font-nevera-type), ui-monospace, monospace;
-  --font-mileast: var(--font-mileast-type), ui-monospace, monospace;
-}
-
-:root.dark {
-  color-scheme: dark;
-
-  --color-background: #141518;
+  --color-background: #000000;
   --color-foreground: #e7e9ee;
   --color-text-secondary: rgba(231, 233, 238, 0.55);
   --color-border: rgba(231, 233, 238, 0.14);
@@ -47,30 +14,70 @@
   --color-inverse-muted: rgba(245, 244, 240, 0.6);
   --color-surface: #202227;
 
+  --color-on-light: #17181b;
   --color-tone-1: #232529;
   --color-tone-2: #2a2c31;
   --color-tone-3: #33363b;
   --color-tone-8: #d9dde4;
   --color-tone-9: #eef0f4;
+
+  --font-sans: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-mono: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-matrix: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-nevera: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-mileast: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
-  transition:
-    background-color 300ms ease,
-    color 300ms ease;
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --header-height: 50px;
 }
 
 @media (min-width: 768px) {
   :root {
     --header-height: 88px;
+  }
+}
+
+.container-page {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 640px) {
+  .container-page {
+    padding-inline: 4vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-inline: 5vw;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-page {
+    padding-inline: 6vw;
+  }
+}
+
+@media (min-width: 1640px) {
+  .container-page {
+    padding-inline: 6vw;
   }
 }
 
@@ -130,10 +137,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body {
-    transition: none;
-  }
-
   .hero-letter {
     animation: none;
     transform: none;
