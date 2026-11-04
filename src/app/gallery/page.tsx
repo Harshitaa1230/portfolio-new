@@ -1,9 +1,23 @@
-"use client";
-
 import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from "@/components/Img";
+import { Link, type MetaFunction } from "react-router";
 import Navbar from "@/components/Navbar";
+
+export const meta: MetaFunction = () => [
+  { title: "Gallery — Anvik Labs" },
+  {
+    name: "description",
+    content: "Photography and visual studies from Anvik Labs.",
+  },
+  {
+    property: "og:title",
+    content: "Gallery — Anvik Labs",
+  },
+  {
+    property: "og:description",
+    content: "Photography and visual studies from Anvik Labs.",
+  },
+];
 
 const heroImages = [
   {
@@ -139,7 +153,7 @@ export default function GalleryPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-black text-white select-none overflow-x-clip pt-20 md:pt-24">
+      <main className="min-h-screen bg-background text-foreground select-none overflow-x-clip pt-20 md:pt-24">
         {/* ── Hero Constellation Section ────────────────────── */}
         <section className="relative w-full min-h-[92vh] flex flex-col items-center justify-center overflow-hidden px-4">
           {/* Centered Gallery Title & Contact Button */}
@@ -149,7 +163,7 @@ export default function GalleryPage() {
             </h1>
 
             <Link
-              href="/contact"
+              to="/contact"
               className="mt-8 px-8 py-3.5 rounded-full border border-white/40 bg-black/40 backdrop-blur-md text-white font-mono text-[13px] md:text-[14px] font-bold tracking-[0.08em] uppercase hover:bg-white hover:text-black transition-all duration-300 shadow-xl cursor-pointer"
             >
               CONTACT NOW
@@ -169,7 +183,6 @@ export default function GalleryPage() {
                     alt={img.alt}
                     fill
                     className="object-cover object-center"
-                    sizes="(min-width: 1024px) 250px, 100vw"
                   />
                 </div>
               ))}
@@ -188,7 +201,6 @@ export default function GalleryPage() {
                   alt={img.alt}
                   fill
                   className="object-cover object-center"
-                  sizes="50vw"
                 />
               </div>
             ))}
@@ -217,7 +229,6 @@ export default function GalleryPage() {
                   alt="Help Center Portrait"
                   fill
                   className="object-cover object-center"
-                  sizes="136px"
                 />
               </div>
 
@@ -300,7 +311,6 @@ export default function GalleryPage() {
                     alt=""
                     fill
                     className="object-cover object-center hover:scale-105 transition-transform duration-500"
-                    sizes="300px"
                   />
                 </div>
               ))}
@@ -351,19 +361,19 @@ export default function GalleryPage() {
                 Quick Links
               </h5>
               <div className="flex gap-2 flex-wrap">
-                <Link href="/" className="text-white hover:underline">
+                <Link to="/" className="text-white hover:underline">
                   Home
                 </Link>
                 ,
-                <Link href="/gallery" className="text-white hover:underline">
+                <Link to="/gallery" className="text-white hover:underline">
                   Gallery
                 </Link>
                 ,
-                <Link href="/works" className="text-white hover:underline">
+                <Link to="/works" className="text-white hover:underline">
                   Work
                 </Link>
                 ,
-                <Link href="/contact" className="text-white hover:underline">
+                <Link to="/contact" className="text-white hover:underline">
                   Contact
                 </Link>
               </div>
@@ -433,7 +443,7 @@ export default function GalleryPage() {
         </section>
       </main>
 
-      <style jsx global>{`
+      <style>{`
         @keyframes marquee {
           0% {
             transform: translateX(0%);

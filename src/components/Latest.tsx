@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from "react-router";
+import Image from "@/components/Img";
 import { motion, useReducedMotion } from "framer-motion";
 import type { MockupMedia } from "@/lib/mockups";
 import { useShuffled } from "@/lib/useShuffled";
@@ -41,7 +41,7 @@ export default function Latest({ mockups }: { mockups: MockupMedia[] }) {
           WORKS
         </h2>
         <Link
-          href="/works"
+          to="/works"
           className={`${mono} shrink-0 transition-opacity duration-200 hover:opacity-50`}
         >
           [ VIEW ALL ]
@@ -68,7 +68,7 @@ export default function Latest({ mockups }: { mockups: MockupMedia[] }) {
                   key={`${media.src}-${idx}`}
                   className="w-[420px] shrink-0 md:w-[620px]"
                 >
-                  <Link href={`/works/${project.slug}`} className="group/card block">
+                  <Link to={`/works/${project.slug}`} className="group/card block">
                     <div className="relative w-full aspect-[16/9] overflow-hidden bg-light-surface transition-transform duration-300 ease-out group-hover/card:-translate-y-1">
                       {media.type === "video" ? (
                         <video
@@ -86,8 +86,6 @@ export default function Latest({ mockups }: { mockups: MockupMedia[] }) {
                           src={media.src}
                           alt={`${project.name} mockup`}
                           fill
-                          sizes="(max-width: 768px) 420px, 620px"
-                          preload={idx === 0}
                           loading={idx < orderedMedia.length ? "eager" : "lazy"}
                           className="object-cover"
                         />

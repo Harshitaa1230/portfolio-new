@@ -1,25 +1,65 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Inter Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/InterDisplay-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/InterDisplay-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter Display";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/InterDisplay-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/InterDisplay-Bold.woff2") format("woff2");
+}
+
 @theme {
-  --color-background: #000000;
+  --color-background: #080808;
   --color-foreground: #e7e9ee;
   --color-text-secondary: rgba(231, 233, 238, 0.55);
-  --color-border: rgba(231, 233, 238, 0.14);
-  --color-light-surface: #202227;
-  --color-dark-surface: #0f1012;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-light-surface: #11100f;
+  --color-dark-surface: #0b0a09;
   --color-text-on-dark: #f5f4f0;
   --color-muted: rgba(231, 233, 238, 0.55);
-  --color-inverse: #202227;
+  --color-inverse: #17140f;
   --color-inverse-foreground: #f5f4f0;
   --color-inverse-muted: rgba(245, 244, 240, 0.6);
-  --color-surface: #202227;
+  --color-surface: #11100f;
 
-  --color-on-light: #17181b;
-  --color-tone-1: #232529;
-  --color-tone-2: #2a2c31;
-  --color-tone-3: #33363b;
+  --color-on-light: #171310;
+  --color-tone-1: #17140f;
+  --color-tone-2: #1c1916;
+  --color-tone-3: #302923;
   --color-tone-8: #d9dde4;
   --color-tone-9: #eef0f4;
+
+  --color-accent: #ff6a00;
+  --color-accent-text: #ff8a4a;
+  --color-accent-strong: #ff6a1a;
+  --color-accent-soft-text: #ffd0a3;
+  --color-accent-soft: rgba(255, 106, 26, 0.1);
+  --color-accent-wash: rgba(255, 106, 26, 0.06);
+  --color-on-accent: #080808;
 
   --font-sans: var(--font-inter-display), "Helvetica Neue", Helvetica, Arial,
     sans-serif;
@@ -41,6 +81,7 @@ body {
 
 :root {
   color-scheme: dark;
+  --font-inter-display: "Inter Display";
   --header-height: 50px;
 }
 
@@ -133,6 +174,16 @@ body {
   }
   to {
     transform: translateX(calc(-50% - 0.25rem));
+  }
+}
+
+@keyframes testimonial-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 

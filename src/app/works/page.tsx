@@ -1,9 +1,23 @@
-"use client";
-
 import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from "@/components/Img";
+import { Link, type MetaFunction } from "react-router";
 import Navbar from "@/components/Navbar";
+
+export const meta: MetaFunction = () => [
+  { title: "Works — Anvik Labs" },
+  {
+    name: "description",
+    content: "Selected brand, editorial, and web projects by Anvik Labs.",
+  },
+  {
+    property: "og:title",
+    content: "Works — Anvik Labs",
+  },
+  {
+    property: "og:description",
+    content: "Selected brand, editorial, and web projects by Anvik Labs.",
+  },
+];
 
 const palmerProjects = [
   {
@@ -74,7 +88,7 @@ const faqs = [
     id: "02",
     question: "What is your typical turnaround time?",
     answer:
-      "Turnaround depends on the project scope, but most sites are delivered within 2–4 weeks from initial kickoff.",
+      "Standard one-page or showcase projects typically take 7 to 14 business days. Comprehensive brand systems or multi-page CMS platforms usually take 3 to 5 weeks from kickoff to final deployment.",
   },
   {
     id: "03",
@@ -96,7 +110,7 @@ const faqs = [
   },
   {
     id: "06",
-    question: "What’s your process like?",
+    question: "What's your process like?",
     answer:
       "Each project begins with a discovery call, followed by design phases, client reviews, and hands-on development.",
   },
@@ -119,7 +133,7 @@ export default function WorksPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-black text-white pt-24 md:pt-32 select-none overflow-x-clip">
+      <main className="min-h-screen bg-background text-foreground pt-24 md:pt-32 select-none overflow-x-clip">
         {/* ── Main Work Split Layout ─────────────────────────── */}
         <div className="max-w-[1480px] mx-auto px-6 md:px-10 pb-20">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start relative">
@@ -140,7 +154,7 @@ export default function WorksPage() {
               {palmerProjects.map((project, idx) => (
                 <Link
                   key={project.id}
-                  href={`/works/${project.id}`}
+                  to={`/works/${project.id}`}
                   className="group flex flex-col cursor-pointer"
                 >
                   {/* Card Media Container */}
@@ -152,9 +166,7 @@ export default function WorksPage() {
                       src={project.bgImage}
                       alt={project.title}
                       fill
-                      priority={idx === 0}
                       className="object-cover object-center group-hover:scale-[1.025] transition-transform duration-700 ease-out"
-                      sizes="(min-width: 1024px) 50vw, 100vw"
                     />
 
                     {/* Centered Floating Inset Thumbnail */}
@@ -164,7 +176,6 @@ export default function WorksPage() {
                         alt=""
                         fill
                         className="object-cover object-center"
-                        sizes="(min-width: 1024px) 25vw, 50vw"
                       />
                     </div>
 
@@ -184,7 +195,7 @@ export default function WorksPage() {
                         </span>
                       </div>
                       <span
-                        className={`px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-widest border ${
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider border ${
                           project.status === "Completed"
                             ? "border-emerald-400/40 text-emerald-300"
                             : "border-amber-400/40 text-amber-300"
@@ -225,7 +236,67 @@ export default function WorksPage() {
                     alt="Help Center Portrait"
                     fill
                     className="object-cover object-center"
-                    sizes="136px"
+                  />
+
+                  <h2 className="font-sans text-[clamp(1.75rem,3.2vw,3rem)] font-medium leading-[1.15] tracking-tight text-white whitespace-pre-line">
+                    Clarifying Deliverable&apos;s Before They Begin{"\n"}with Real
+                    Process and Honest アンサー.
+                  </h2>
+                </div>
+
+                {/* Right Column: Accordion */}
+                <div className="lg:col-span-7 flex flex-col">
+                  {faqs.map((faq) => {
+                    const isOpen = openFaq === faq.id;
+                    return (
+                      <div
+                        key={faq.id}
+                        className="border-t border-white/15 last:border-b"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => toggleFaq(faq.id)}
+                          className="w-full flex items-center justify-between py-6 text-left cursor-pointer group"
+                          aria-expanded={isOpen}
+                        >
+                          <span className="font-mono text-[13px] text-neutral-500 w-12 shrink-0">
+                            {faq.id}
+                          </span>
+                          <span className="font-sans text-[18px] md:text-[22px] font-medium text-white flex-1 pr-4 group-hover:text-neutral-200 transition-colors">
+                            {faq.question}
+                          </span>
+                          <span
+                            className={`text-2xl font-light text-neutral-400 transition-transform duration-300 shrink-0 ${
+                              isOpen ? "rotate-45" : "rotate-0"
+                            }`}
+                          >
+                            +
+                          </span>
+                        </button>
+
+                        <div
+                          className={`overflow-hidden transition-all duration-400 ease-out ${
+                            isOpen ? "max-h-60 opacity-100 pb-6" : "max-h-0 opacity-0"
+                          }`}
+                        >
+                          <p className="font-sans text-[15px] md:text-[16px] text-neutral-400 leading-relaxed pl-12 max-w-xl">
+                            {faq.answer}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Right Column: Portrait & Headline */}
+              {/* <div className="lg:col-span-7 flex flex-col items-start">
+                <div className="relative w-[136px] h-[180px] rounded-xl overflow-hidden mb-8 border border-white/10">
+                  <Image
+                    src="/profile/harshita.jpeg"
+                    alt="Harshita Upadhyay | harshi.designs"
+                    fill
+                    className="object-cover object-center"
                   />
                 </div>
 
@@ -233,51 +304,7 @@ export default function WorksPage() {
                   Clarifying Deliverable&apos;s Before They Begin{"\n"}with Real
                   Process and Honest アンサー.
                 </h2>
-              </div>
-
-              {/* Right Column: Accordion */}
-              <div className="lg:col-span-7 flex flex-col">
-                {faqs.map((faq) => {
-                  const isOpen = openFaq === faq.id;
-                  return (
-                    <div
-                      key={faq.id}
-                      className="border-t border-white/15 last:border-b"
-                    >
-                      <button
-                        type="button"
-                        onClick={() => toggleFaq(faq.id)}
-                        className="w-full flex items-center justify-between py-6 text-left cursor-pointer group"
-                        aria-expanded={isOpen}
-                      >
-                        <span className="font-mono text-[13px] text-neutral-500 w-12 shrink-0">
-                          {faq.id}
-                        </span>
-                        <span className="font-sans text-[18px] md:text-[22px] font-medium text-white flex-1 pr-4 group-hover:text-neutral-200 transition-colors">
-                          {faq.question}
-                        </span>
-                        <span
-                          className={`text-2xl font-light text-neutral-400 transition-transform duration-300 shrink-0 ${
-                            isOpen ? "rotate-45" : "rotate-0"
-                          }`}
-                        >
-                          +
-                        </span>
-                      </button>
-
-                      <div
-                        className={`overflow-hidden transition-all duration-400 ease-out ${
-                          isOpen ? "max-h-60 opacity-100 pb-6" : "max-h-0 opacity-0"
-                        }`}
-                      >
-                        <p className="font-sans text-[15px] md:text-[16px] text-neutral-400 leading-relaxed pl-12 max-w-xl">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              </div> */}
             </div>
           </section>
         </div>
@@ -335,19 +362,19 @@ export default function WorksPage() {
                 Quick Links
               </h5>
               <div className="flex gap-2 flex-wrap">
-                <Link href="/" className="text-white hover:underline">
+                <Link to="/" className="text-white hover:underline">
                   Home
                 </Link>
                 ,
-                <Link href="/gallery" className="text-white hover:underline">
+                <Link to="/gallery" className="text-white hover:underline">
                   Gallery
                 </Link>
                 ,
-                <Link href="/works" className="text-white hover:underline">
+                <Link to="/works" className="text-white hover:underline">
                   Work
                 </Link>
                 ,
-                <Link href="/contact" className="text-white hover:underline">
+                <Link to="/contact" className="text-white hover:underline">
                   Contact
                 </Link>
               </div>
