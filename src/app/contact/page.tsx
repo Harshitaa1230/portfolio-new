@@ -1,14 +1,23 @@
-import type { Metadata } from "next";
+import type { MetaFunction } from "react-router";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 import Faq from "@/components/Faq";
 
-export const metadata: Metadata = {
-  title: "Contact — Palmer® Minimal Portfolio & Agency",
-  description:
-    "Direct inquiry and collaboration with Akihiko. Studio based in Tokyo, Japan.",
-};
+export const meta: MetaFunction = () => [
+  { title: "Contact — Anvik Labs" },
+  {
+    name: "description",
+    content:
+      "Contact Anvik Labs about product design and engineering work.",
+  },
+  { property: "og:title", content: "Contact — Anvik Labs" },
+  {
+    property: "og:description",
+    content:
+      "Contact Anvik Labs about product design and engineering work.",
+  },
+];
 
 export default function ContactPage() {
   return (

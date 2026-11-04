@@ -1,315 +1,291 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const testimonials = [
   {
     quote:
-      "Akihiko has an incredible eye for detail and a rare ability to translate complex ideas into clean, elegant interfaces. Working with him was seamless from start to finish — he not only delivered beyond expectations but also brought thoughtful ideas that elevated the entire project.",
-    author: "Rohan Mehta",
-    username: "@rohanmehta",
+      "Anvik Labs joined as a small team and immediately operated like part of ours. They found the simplest version of a complicated product, then shipped it with a level of finish we had not seen from a larger studio.",
     role: "Founder",
-    company: "Orbit Labs",
-    date: "Mar 2024",
+    sector: "SaaS platform",
+    rotation: 28,
   },
   {
     quote:
-      "What sets Akihiko apart is his blend of strategy and craft. He thinks like a product designer but executes with the precision of a developer. The result was a website that felt modern, fast, and effortlessly intuitive for our users.",
-    author: "Sofia Navarro",
-    username: "@sofianavarro",
-    role: "Product Lead",
-    company: "Framehaus",
-    date: "Jun 2024",
+      "The work was clear from the first review. No theatre, no unnecessary layers — just a sharp read on the problem and a product our customers could understand immediately.",
+    role: "Head of Product",
+    sector: "Fintech",
+    rotation: -34,
   },
   {
     quote:
-      "His ability to merge storytelling with clean interaction design is unmatched. Akihiko understands not just how things should look, but why they should look that way — and that insight came through in every part of the work.",
-    author: "Mei Tanaka",
-    username: "@meitanaka",
-    role: "UX Designer",
-    company: "Nuro",
-    date: "Sep 2024",
-  },
-  {
-    quote:
-      "Working with Akihiko was more than just hiring a designer — it felt like bringing on a creative partner who truly understood our goals. He took our raw ideas, added clarity, and transformed them into something that not only looked stunning.",
-    author: "Julian Pierce",
-    username: "@julianpierce",
-    role: "Director",
-    company: "Vektor Inc.",
-    date: "Nov 2024",
-  },
-  {
-    quote:
-      "Akihiko brings a rare balance of creativity and discipline. He’s incredibly fast without ever sacrificing attention to detail. From early ideation to the final product, his process is intentional, his communication is clear.",
-    author: "Hana Samoto",
-    username: "@hanasamoto",
-    role: "CEO",
-    company: "Willow Studio",
-    date: "Jan 2025",
+      "They treated the brand and the build as one system. That made the handoff unusually calm, and it shows in how consistent the experience still feels months later.",
+    role: "Creative Director",
+    sector: "Culture & media",
+    rotation: 62,
   },
 ];
 
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
-}
+const logoPlaceholders = Array.from({ length: 8 }, (_, index) => index);
 
-function TwitterIcon() {
+function PlaceholderMark({ index }: { index: number }) {
+  const variant = index % 4;
+
+  if (variant === 0) {
+    return (
+      <span className="relative block h-4 w-4 rounded-full border border-current">
+        <span className="absolute inset-1 rounded-full border border-current" />
+      </span>
+    );
+  }
+
+  if (variant === 1) {
+    return <span className="block h-4 w-4 rotate-45 border border-current" />;
+  }
+
+  if (variant === 2) {
+    return (
+      <span className="flex h-4 w-4 flex-col justify-between">
+        <span className="h-px w-full bg-current" />
+        <span className="h-px w-full bg-current" />
+        <span className="h-px w-3/4 bg-current" />
+      </span>
+    );
+  }
+
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
+    <span className="relative block h-4 w-4">
+      <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-current" />
+      <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-current" />
+    </span>
   );
 }
 
-function VerifiedBadge() {
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="text-white">
-      <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.232c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.02-2.147 3.6 0 1.435.738 2.695 1.862 3.408-.018.264-.052.52-.052.787 0 2.21 1.71 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.305 1.926 2.22 3.437 2.22 1.512 0 2.818-.915 3.437-2.22.415.165.865.25 1.336.25 2.11 0 3.818-1.79 3.818-4 0-.266-.034-.52-.052-.778 1.125-.713 1.862-1.974 1.862-3.41zM10.09 15.75 7.5 13.16l1.41-1.41 1.18 1.17 4.41-4.42 1.41 1.42z" />
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d={
+          direction === "left"
+            ? "M10.5 3.5 6 8l4.5 4.5M6 8h7"
+            : "M5.5 3.5 10 8l-4.5 4.5M10 8H3"
+        }
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
 export default function Testimonials() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const [pinned, setPinned] = useState(false);
-  const [pairIndex, setPairIndex] = useState(-1);
+  const [active, setActive] = useState(0);
   const reduceMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(false);
+  const story = testimonials[active];
+  const total = String(testimonials.length).padStart(2, "0");
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  const goTo = (direction: number) => {
+    setActive((current) => (current + direction + testimonials.length) % testimonials.length);
+  };
 
-  useEffect(() => {
-    if (reduceMotion) {
-      setPinned(false);
-      setPairIndex(testimonials.length - 1);
-      return;
-    }
-
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      const heading = headingRef.current;
-      if (!section || !heading) return;
-
-      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-      const viewportCenter = window.scrollY + window.innerHeight / 2;
-      const headingCenter = sectionTop + heading.offsetTop + heading.offsetHeight / 2;
-      const sectionBottom = sectionTop + section.offsetHeight;
-
-      if (viewportCenter >= headingCenter - 40 && viewportCenter < sectionBottom - window.innerHeight * 0.6) {
-        setPinned(true);
-        const progress = Math.min(
-          1,
-          Math.max(0, (viewportCenter - (headingCenter - 40)) / (window.innerHeight * 1.6))
-        );
-        const maxPairs = Math.ceil(testimonials.length / 2);
-        const idx = Math.floor(progress * maxPairs);
-        setPairIndex(Math.min(maxPairs - 1, Math.max(-1, idx)));
-      } else if (viewportCenter >= sectionBottom - window.innerHeight * 0.6) {
-        setPinned(false);
-        setPairIndex(Math.ceil(testimonials.length / 2) - 1);
-      } else {
-        setPinned(false);
-        setPairIndex(-1);
-      }
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, [reduceMotion]);
-
-  const pairs: Array<[typeof testimonials[0], typeof testimonials[0] | null]> = [];
-  for (let i = 0; i < testimonials.length; i += 2) {
-    pairs.push([testimonials[i], testimonials[i + 1] || null]);
-  }
+  const fade = {
+    initial: reduceMotion ? false : { opacity: 0, y: 10 },
+    animate: { opacity: 1, y: 0 },
+    exit: reduceMotion ? { opacity: 1 } : { opacity: 0, y: -8 },
+    transition: { duration: reduceMotion ? 0 : 0.32, ease: [0.16, 1, 0.3, 1] as const },
+  };
 
   return (
-    <section ref={sectionRef} className="border-t border-white/10 select-none relative">
-      {/* Meta Header */}
-      <div className="flex items-center justify-between text-[11px] md:text-[12px] font-mono uppercase tracking-[0.05em] text-neutral-400 pt-16 md:pt-24 mb-8 md:mb-12">
-        <div className="flex items-center gap-2">
-          <span className="text-neutral-500">©</span>
-          <span>Testimonials</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span>(WDX® — 08)</span>
-          <span className="hidden sm:inline text-neutral-500">·</span>
-          <span className="hidden sm:inline">Reviews</span>
-        </div>
-      </div>
+    <section
+      id="testimonials"
+      aria-labelledby="testimonials-heading"
+      className="border-t border-white/10"
+    >
+      <div className="container-page py-14 md:py-20">
+        <h2 id="testimonials-heading" className="sr-only">
+          Client stories and testimonials
+        </h2>
 
-      {/* Headline */}
-      <div ref={headingRef} className="pb-6 md:pb-8 border-b border-white/10 overflow-hidden">
-        <motion.div
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="flex whitespace-nowrap"
-        >
-          {[0, 1].map((i) => (
-            <div key={i} className="flex items-center">
-              <h2 className="whitespace-nowrap font-sans text-[clamp(2.5rem,10vw,8rem)] font-bold tracking-[-0.04em] leading-none text-foreground uppercase pr-16 md:pr-28">
-                TESTIMONIAL ©
-              </h2>
-              <h2 className="whitespace-nowrap font-sans text-[clamp(2.5rem,10vw,8rem)] font-bold tracking-[-0.04em] leading-none text-foreground uppercase pr-16 md:pr-28">
-                TESTIMONIAL ©
-              </h2>
-            </div>
-          ))}
-        </motion.div>
-      </div>
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-neutral-400 md:text-[11px]">
+          <span>© Testimonials</span>
+          <span className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 bg-accent" />
+            <span>Placeholder content</span>
+            <span className="hidden text-neutral-700 sm:inline">·</span>
+            <span className="hidden sm:inline">(WDX® — 08)</span>
+          </span>
+        </div>
 
-      {/* Scroll space for pinning */}
-      <div className={pinned || reduceMotion ? "h-[250vh] md:h-[320vh]" : "h-[40vh] md:h-[60vh]"}>
-        <div className={pinned ? "sticky top-0 h-screen flex items-center overflow-hidden" : "relative h-full flex items-center"}>
-          <div className="w-full px-4 sm:px-[4vw] lg:px-[5vw] xl:px-[6vw]">
-            <div className="relative z-10">
-              {isMobile ? (
-                <div className="flex flex-col gap-4">
-                  {testimonials.map((item, idx) => (
-                    <article
-                      key={idx}
-                      className="w-full rounded-xl border border-white/10 bg-[#0a0a0a] p-5 flex flex-col gap-4"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-white/15 text-[11px] font-semibold tracking-widest text-white">
-                            {getInitials(item.author)}
-                          </div>
-                          <div className="flex flex-col">
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-sans text-[14px] font-medium text-white leading-tight">{item.author}</span>
-                              <VerifiedBadge />
-                            </div>
-                            <span className="font-sans text-[13px] text-neutral-400 leading-tight">{item.username || item.role}</span>
-                          </div>
-                        </div>
-                        <div className="text-neutral-500">
-                          <TwitterIcon />
-                        </div>
+        <div className="mt-6 grid overflow-hidden border border-tone-3 bg-background md:mt-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+          <div className="flex flex-col justify-between p-6 md:p-9 lg:p-11">
+            <div>
+              <div className="flex items-center justify-between gap-6">
+                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-400">
+                  <span className="h-px w-6 bg-accent" />
+                  <span>Client stories</span>
+                </div>
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500">
+                  {story.sector}
+                </span>
+              </div>
+
+              <div className="mt-8 min-h-[250px] md:mt-10 md:min-h-[270px]">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div key={active} {...fade}>
+                    <blockquote>
+                      <p className="max-w-[44ch] text-pretty font-sans text-[clamp(1.3rem,1.8vw,2rem)] leading-[1.5] tracking-[-0.025em] text-foreground">
+                        {story.quote}
+                      </p>
+                    </blockquote>
+
+                    <div className="mt-8 flex items-start gap-3">
+                      <span className="mt-1.5 h-2 w-2 shrink-0 bg-accent" />
+                      <div>
+                        <p className="font-sans text-[15px] font-medium tracking-[-0.01em] text-foreground">
+                          Client name
+                        </p>
+                        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-400">
+                          {story.role} / Company
+                        </p>
                       </div>
-                      <p className="font-sans text-[14px] leading-[1.7] text-white/90">{item.quote}</p>
-                      {(item.date || item.company) && (
-                        <div className="pt-3 border-t border-white/5">
-                          <span className="font-sans text-[12px] text-neutral-500">
-                            {item.date ? item.date : item.company}
-                          </span>
-                        </div>
-                      )}
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                  {pairs.map((pair, pIdx) => {
-                    const isActive = pinned ? pIdx <= pairIndex : true;
-                    const isVisible = pinned ? pIdx === pairIndex || (pairIndex === -1 && pIdx === 0 && !pinned ? false : pIdx === pairIndex) : true;
-                    if (!isActive && pinned && pairIndex >= 0) return null;
-                    if (pinned && pairIndex < 0) return null;
-                    if (!pinned && reduceMotion) return null;
-                    if (!pinned && pairIndex === -1) return null;
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
 
-                    return pair.map((item, cIdx) => {
-                      if (!item) return <div key={`${pIdx}-empty`} />;
-                      const delay = cIdx * 0.08;
-                      return (
-                        <motion.article
-                          key={`${pIdx}-${cIdx}`}
-                          initial={pinned ? { y: 80, opacity: 0 } : { y: 0, opacity: 1 }}
-                          animate={pinned ? { y: isVisible ? 0 : 80, opacity: isVisible ? 1 : 0 } : { y: 0, opacity: 1 }}
-                          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
-                          className="w-full rounded-xl border border-white/10 bg-[#0a0a0a] p-6 md:p-7 flex flex-col gap-4 shadow-none"
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="flex items-center gap-3">
-                              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-white/15 text-[12px] font-semibold tracking-widest text-white">
-                                {getInitials(item.author)}
-                              </div>
-                              <div className="flex flex-col">
-                                <div className="flex items-center gap-1.5">
-                                  <span className="font-sans text-[15px] font-medium text-white leading-tight">{item.author}</span>
-                                  <VerifiedBadge />
-                                </div>
-                                <span className="font-sans text-[14px] text-neutral-400 leading-tight">{item.username || `${item.role} · ${item.company}`}</span>
-                              </div>
-                            </div>
-                            <div className="text-neutral-500">
-                              <TwitterIcon />
-                            </div>
-                          </div>
-                          <p className="font-sans text-[15px] leading-[1.8] text-white/90">{item.quote}</p>
-                          {(item.date || item.company) && (
-                            <div className="pt-4 border-t border-white/5">
-                              <span className="font-sans text-[12px] text-neutral-500">
-                                {item.date ? item.date : item.company}
-                              </span>
-                            </div>
-                          )}
-                        </motion.article>
-                      );
-                    });
-                  })}
-                </div>
-              )}
+            <div className="mt-8 flex items-center justify-between border-t border-tone-3 pt-4">
+              <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500">
+                <span className="h-1.5 w-1.5 bg-accent/70" />
+                Sample story
+              </span>
+
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => goTo(-1)}
+                  aria-label="Previous client story"
+                  className="flex h-8 w-8 items-center justify-center border border-tone-3 text-neutral-400 transition-colors duration-200 hover:border-white/20 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                >
+                  <ArrowIcon direction="left" />
+                </button>
+
+                <span
+                  aria-live="polite"
+                  className="min-w-14 text-center font-mono text-[10px] tracking-[0.16em] text-neutral-400"
+                >
+                  {String(active + 1).padStart(2, "0")} / {total}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => goTo(1)}
+                  aria-label="Next client story"
+                  className="flex h-8 w-8 items-center justify-center border border-tone-3 text-neutral-400 transition-colors duration-200 hover:border-white/20 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                >
+                  <ArrowIcon direction="right" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative min-h-[320px] overflow-hidden border-t border-tone-3 md:min-h-0 md:border-l md:border-t-0">
+            <div className="relative flex h-full min-h-[320px] flex-col justify-between p-6 md:min-h-0 md:p-8">
+              <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500">
+                <span>Studio signature</span>
+                <span>
+                  {String(active + 1).padStart(2, "0")} / {total}
+                </span>
+              </div>
+
+              <div className="flex flex-1 items-center justify-center py-10">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={reduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.99 }}
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.36,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="relative flex h-52 w-52 items-center justify-center md:h-60 md:w-60"
+                  >
+                    <div className="absolute inset-0 motion-safe:animate-[testimonial-orbit_36s_linear_infinite] [transform-origin:50%_50%] will-change-transform">
+                      <div className="absolute inset-0 rounded-full border border-white/10" />
+                      <div className="absolute inset-6 rounded-full border border-tone-3" />
+                      <div
+                        className="absolute inset-0 rounded-full border border-transparent"
+                        style={{
+                          borderTopColor: "var(--color-accent)",
+                          transform: `rotate(${story.rotation}deg)`,
+                        }}
+                      />
+                      <div className="absolute right-4 top-4 h-1.5 w-1.5 bg-accent" />
+                    </div>
+                    <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
+                    <div className="absolute inset-y-0 left-1/2 w-px bg-white/10" />
+                    <div className="absolute left-1/2 top-1/2 flex h-20 w-[280px] -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-tone-3 bg-background lg:h-24 lg:w-[350px] lg:px-2 xl:h-28 xl:w-[430px]">
+                      <img
+                        src="/logo.svg"
+                        alt="Anvik Labs"
+                        width={1010}
+                        height={118}
+                        className="h-8 w-auto lg:h-10 xl:h-12"
+                      />
+                    </div>
+                    <div className="absolute bottom-4 left-4 font-mono text-[8px] uppercase tracking-[0.2em] text-neutral-500">
+                      Anvik / Labs
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="flex items-end justify-between gap-4 border-t border-tone-3 pt-4 font-mono text-[9px] uppercase tracking-[0.16em] text-neutral-500">
+                <span>Product design / engineering</span>
+                <span className="text-right">{story.sector}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Reduced motion fallback */}
-      {reduceMotion && !isMobile && (
-        <div className="px-4 sm:px-[4vw] lg:px-[5vw] xl:px-[6vw] pb-16 md:pb-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            {testimonials.map((item, idx) => (
-              <article
-                key={idx}
-                className="w-full rounded-xl border border-white/10 bg-[#0a0a0a] p-6 md:p-7 flex flex-col gap-4"
+        <div className="mt-4">
+          <div className="mb-3 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-500">
+            <span>Client logo grid</span>
+            <span>Placeholder positions</span>
+          </div>
+
+          <div className="grid grid-cols-2 border-l border-t border-tone-3 md:grid-cols-4">
+            {logoPlaceholders.map((index) => (
+              <div
+                key={index}
+                className={`group flex h-24 items-center justify-center border-b border-r border-tone-3 transition-colors duration-300 md:h-28 ${
+                  index % 2 === 0 ? "bg-background" : "bg-white/[0.02]"
+                }`}
+                title="Placeholder client logo"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-white/15 text-[12px] font-semibold tracking-widest text-white">
-                      {getInitials(item.author)}
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-sans text-[15px] font-medium text-white leading-tight">{item.author}</span>
-                        <VerifiedBadge />
-                      </div>
-                      <span className="font-sans text-[14px] text-neutral-400 leading-tight">{item.username || `${item.role} · ${item.company}`}</span>
-                    </div>
-                  </div>
-                  <div className="text-neutral-500">
-                    <TwitterIcon />
-                  </div>
+                <div className="flex items-center gap-2.5 text-neutral-500 transition-colors duration-300 group-hover:text-neutral-200">
+                  <PlaceholderMark index={index} />
+                  <span className="font-mono text-[9px] uppercase tracking-[0.18em]">
+                    Client {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
-                <p className="font-sans text-[15px] leading-[1.8] text-white/90">{item.quote}</p>
-                {(item.date || item.company) && (
-                  <div className="pt-4 border-t border-white/5">
-                    <span className="font-sans text-[12px] text-neutral-500">
-                      {item.date ? item.date : item.company}
-                    </span>
-                  </div>
-                )}
-              </article>
+              </div>
             ))}
           </div>
         </div>
-      )}
+
+        <div className="mt-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <p className="max-w-[68ch] font-mono text-[9px] uppercase leading-relaxed tracking-[0.14em] text-neutral-400">
+            Development placeholder — replace the sample quote, attribution, and
+            logo marks with verified client content before launch.
+          </p>
+          <span className="shrink-0 font-mono text-[9px] uppercase tracking-[0.14em] text-neutral-500">
+            08 positions / 4 columns
+          </span>
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 
 const disciplines = ["Product Designer", "UI/UX Designer"];
 
 const quickLinks = [
   { label: "Home", href: "/" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Work", href: "/works" },
+  { label: "Services", href: "/gallery" },
+  { label: "Product", href: "/works" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -37,26 +37,27 @@ export default function Navbar() {
           {/* Brand Wordmark (Left) */}
           <div className="flex flex-col">
             <Link
-              href="/"
-              className="font-sans font-semibold tracking-[-0.01em] text-foreground transition-opacity duration-200 hover:opacity-70 text-[15px] md:text-[16px] inline-flex items-center gap-0.5"
+              to="/"
+              aria-label="Anvik Labs home"
+              className="inline-flex items-center transition-opacity duration-200 hover:opacity-70"
             >
-              <span>Harshita</span>
-              <span className="text-[10px] md:text-[11px] font-normal align-top leading-none -mt-1">
-                ®
-              </span>
+              <img
+                src="/logo.svg"
+                alt="Anvik Labs | Technology Studio | UI/UX | Web Development"
+                width={1010}
+                height={118}
+                className="h-5 w-auto md:h-6"
+              />
             </Link>
           </div>
 
           {/* Quick Links (Center) */}
           <div className="hidden md:flex flex-col items-start gap-1">
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.05em] text-neutral-400">
-              Quick Links
-            </span>
             <div className="flex items-center gap-1.5 font-sans text-neutral-300">
               {quickLinks.map((item, index) => (
                 <span key={item.label} className="inline-flex items-center gap-1.5">
                   <Link
-                    href={item.href}
+                    to={item.href}
                     className="transition-colors duration-200 hover:text-white underline-offset-4 hover:underline"
                   >
                     {item.label}
@@ -70,26 +71,7 @@ export default function Navbar() {
           </div>
 
           {/* Location & Discipline (Right) */}
-          <div className="hidden md:flex flex-col items-end gap-1 text-right">
-            <span className="font-sans text-[12px] md:text-[13px] text-foreground font-medium">
-              Based in India <span className="font-normal text-neutral-300"></span>
-            </span>
-            <span className="inline-flex h-[1.35em] items-center justify-end overflow-hidden font-sans text-[12px] md:text-[13px] text-neutral-400 font-normal">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={disciplines[disciplineIndex]}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="whitespace-nowrap"
-                >
-                  {disciplines[disciplineIndex]}
-                </motion.span>
-              </AnimatePresence>
-            </span>
-          </div>
-
+          
           {/* Mobile Menu Trigger */}
           <button
             type="button"
@@ -118,12 +100,18 @@ export default function Navbar() {
         >
           <div className="flex items-center justify-between">
             <Link
-              href="/"
+              to="/"
               onClick={() => setOpen(false)}
-              className="font-sans font-semibold tracking-[-0.01em] text-foreground text-[16px] inline-flex items-center gap-0.5"
+              aria-label="Anvik Labs home"
+              className="inline-flex items-center"
             >
-              <span>Harshita Upadhyay</span>
-              <span className="text-[10px] font-normal align-top leading-none -mt-1">®</span>
+              <img
+                src="/logo.svg"
+                alt="Anvik Labs"
+                width={1010}
+                height={118}
+                className="h-6 w-auto"
+              />
             </Link>
             <button
               type="button"
@@ -142,7 +130,7 @@ export default function Navbar() {
             {quickLinks.map((item) => (
               <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 onClick={() => setOpen(false)}
                 className="font-sans text-[22px] font-medium tracking-tight text-foreground transition-opacity duration-200 hover:opacity-60"
               >

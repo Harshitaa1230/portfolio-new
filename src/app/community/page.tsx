@@ -1,12 +1,15 @@
-import type { Metadata } from "next";
+import type { MetaFunction } from "react-router";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ComingSoon from "@/components/ComingSoon";
 
-export const metadata: Metadata = {
-  title: "Community — Coming Soon",
-  description: "The Community page is coming soon.",
-};
+export const meta: MetaFunction = () => [
+  { title: "Community — Anvik Labs" },
+  {
+    name: "description",
+    content: "The Anvik Labs community page is coming soon.",
+  },
+];
 
 export default function CommunityPage() {
   return (

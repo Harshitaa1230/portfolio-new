@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router";
 
 const mono =
   "font-mono uppercase tracking-[0.02em] text-[12px] leading-[1.2]";
@@ -28,7 +28,7 @@ export default function ComingSoon({ label, description }: ComingSoonProps) {
         </p>
 
         <Link
-          href="/"
+          to="/"
           className={`${mono} mt-10 w-fit transition-opacity duration-200 hover:opacity-50`}
         >
           [ BACK HOME ]

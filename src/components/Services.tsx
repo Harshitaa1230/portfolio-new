@@ -1,121 +1,132 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
-const serviceList = [
+const services = [
   {
-    num: "01",
-    title: "Art Direction",
-    description:
-      "We guide every visual decision from start to finish, ensuring clarity, emotion, and impact across every touchpoint.",
-    deliverables: ["Visual Strategy", "Concept Development", "Creative Direction", "Asset Production"],
+    name: "Web Development",
+    discipline: "Engineering",
+    detail: "React / Next.js",
+    scope: "Design to Launch",
   },
   {
-    num: "02",
-    title: "Brand Identity",
-    description:
-      "From strategy to execution, we shape consistent brand systems that speak clearly and feel uniquely ownable.",
-    deliverables: ["Logo Design", "Typography Systems", "Brand Guidelines", "Design Tokens"],
+    name: "Product Design",
+    discipline: "Design",
+    detail: "Interface / Systems",
+    scope: "Research to UI",
   },
   {
-    num: "03",
-    title: "Motion Direction",
-    description:
-      "We use motion as a design tool — adding clarity, rhythm, and energy to digital experiences with intention.",
-    deliverables: ["UI Micro-interactions", "Page Transitions", "Interactive Prototypes", "Video Editing"],
+    name: "AI Solutions",
+    discipline: "Applied AI",
+    detail: "LLM / Automation",
+    scope: "Prototype to Production",
   },
   {
-    num: "04",
-    title: "Framer Sites",
-    description:
-      "Design meets execution with real-time, scalable websites — all crafted natively inside Framer for speed and precision.",
-    deliverables: ["Responsive Architecture", "CMS Architecture", "Custom Code Overrides", "SEO Optimization"],
+    name: "Website Maintenance",
+    discipline: "Care",
+    detail: "Performance / Updates",
+    scope: "Ongoing Support",
   },
 ];
 
 export default function Services() {
-  const [activeTab, setActiveTab] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   return (
-    <section id="services" className="py-16 md:py-24 border-t border-white/10 select-none">
-      {/* Meta Header */}
-      <div className="flex items-center justify-between text-[11px] md:text-[12px] font-mono uppercase tracking-[0.05em] text-neutral-400 mb-8 md:mb-12">
+    <section
+      id="services"
+      aria-labelledby="services-heading"
+      className="py-16 md:py-24 border-t border-white/10 select-none"
+    >
+      <motion.div
+        initial={reduceMotion ? undefined : { opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.8 }}
+        transition={{ type: "spring", stiffness: 130, damping: 24, mass: 0.7 }}
+        className="flex items-center justify-between text-[11px] md:text-[12px] font-mono uppercase tracking-[0.05em] text-neutral-400 mb-8 md:mb-12"
+      >
         <div className="flex items-center gap-2">
           <span className="text-neutral-500">©</span>
-          <span>Capabilities</span>
-          <span className="text-neutral-500 font-sans">サービス内容</span>
+          <span>Services</span>
         </div>
         <div className="flex items-center gap-2">
-          <span>(WDX® — 05)</span>
+          <span>(WDX® — 07)</span>
           <span className="hidden sm:inline text-neutral-500">·</span>
-          <span className="hidden sm:inline">Digital Execution</span>
+          <span className="hidden sm:inline">Capabilities</span>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Headline & Tags */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 pb-10 border-b border-white/10">
-        <div>
-          <div className="inline-block px-3 py-1 rounded-full bg-white/10 text-[11px] font-mono uppercase tracking-wider text-neutral-300 mb-3">
-            Services (6)
-          </div>
-          <h2 className="font-sans text-[clamp(2.4rem,6vw,5.5rem)] font-bold tracking-[-0.04em] leading-none text-foreground uppercase">
-            Visual Language
-          </h2>
-        </div>
+      <h2 id="services-heading" className="sr-only">
+        Services
+      </h2>
 
-        {/* Feature Tags */}
-        <div className="flex flex-wrap items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-neutral-400">
-          <span className="px-3 py-1 rounded-full border border-white/10 bg-neutral-900">
-            Precise
-          </span>
-          <span className="px-3 py-1 rounded-full border border-white/10 bg-neutral-900">
-            Structured
-          </span>
-          <span className="px-3 py-1 rounded-full border border-white/10 bg-neutral-900">
-            Focused
-          </span>
-        </div>
-      </div>
-
-      {/* Interactive Service Accordions / Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 md:mt-12">
-        {serviceList.map((service, idx) => (
-          <div
-            key={service.num}
-            onClick={() => setActiveTab(idx)}
-            className={`cursor-pointer rounded-2xl md:rounded-3xl p-6 md:p-8 border transition-all duration-300 flex flex-col justify-between ${
-              activeTab === idx
-                ? "bg-neutral-900 border-white/30 shadow-2xl"
-                : "bg-neutral-950/60 border-white/10 hover:border-white/20"
-            }`}
+      <div
+        aria-hidden="true"
+        className="pb-6 md:pb-8 border-b border-white/10 overflow-hidden"
+      >
+        <motion.div
+          initial={reduceMotion ? undefined : { opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ type: "spring", stiffness: 130, damping: 24, mass: 0.7 }}
+        >
+          <motion.div
+            animate={reduceMotion ? undefined : { x: ["0%", "-50%"] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+            className="flex whitespace-nowrap"
           >
-            <div>
-              <div className="flex items-center justify-between font-mono text-[12px] text-neutral-400 mb-4">
-                <span>{service.num}</span>
-                <span className="uppercase text-[11px] tracking-wider text-neutral-500">
-                  DISCIPLINE
-                </span>
+            {[0, 1].map((i) => (
+              <div key={i} className="flex items-center">
+                {[0, 1].map((j) => (
+                  <span
+                    key={j}
+                    className="whitespace-nowrap font-sans text-[clamp(2.5rem,10vw,8rem)] font-bold tracking-[-0.04em] leading-none text-foreground uppercase pr-16 md:pr-28"
+                  >
+                    Services©
+                  </span>
+                ))}
               </div>
-              <h3 className="font-sans text-[22px] md:text-[26px] font-semibold text-foreground tracking-tight mb-3">
-                {service.title}
-              </h3>
-              <p className="font-sans text-[14px] md:text-[15px] text-neutral-400 leading-relaxed">
-                {service.description}
-              </p>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+
+      <div className="divide-y divide-white/10 mt-6 md:mt-8">
+        {services.map((item, idx) => (
+          <motion.div
+            key={item.name}
+            initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={reduceMotion ? undefined : { y: -1, scale: 1.002 }}
+            whileTap={reduceMotion ? undefined : { scale: 0.998 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 24,
+              mass: 0.55,
+              delay: reduceMotion ? 0 : 0.18 + idx * 0.1,
+            }}
+            className="group rounded-lg px-2 py-5 transition-colors duration-300 hover:bg-white/[0.02] hover:ring-1 hover:ring-white/15 md:py-7"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
+              <span className="font-mono text-[11px] text-neutral-500 w-8">
+                [0{idx + 1}]
+              </span>
+              <span className="font-sans text-[18px] md:text-[21px] font-semibold text-foreground group-hover:text-white transition-colors">
+                {item.name}
+              </span>
+              <span className="hidden sm:inline text-neutral-600">·</span>
+              <span className="font-sans text-[14px] md:text-[15px] text-neutral-400">
+                {item.discipline}
+              </span>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap gap-2">
-              {service.deliverables.map((item) => (
-                <span
-                  key={item}
-                  className="text-[11px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-white/5 text-neutral-400"
-                >
-                  {item}
-                </span>
-              ))}
+            <div className="flex items-center justify-between sm:justify-end gap-6 text-[12px] md:text-[13px] font-mono text-neutral-400">
+              <span className="text-neutral-500">{item.detail}</span>
+              <span className="text-neutral-300 font-medium">{item.scope}</span>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

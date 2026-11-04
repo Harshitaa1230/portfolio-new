@@ -1,12 +1,15 @@
-import type { Metadata } from "next";
+import type { MetaFunction } from "react-router";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ComingSoon from "@/components/ComingSoon";
 
-export const metadata: Metadata = {
-  title: "Challenge — Coming Soon",
-  description: "The Challenge page is coming soon.",
-};
+export const meta: MetaFunction = () => [
+  { title: "Challenge — Anvik Labs" },
+  {
+    name: "description",
+    content: "The Anvik Labs challenge page is coming soon.",
+  },
+];
 
 export default function ChallengePage() {
   return (

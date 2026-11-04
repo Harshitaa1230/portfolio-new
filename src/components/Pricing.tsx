@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "react-router";
 
 const plans = [
   {
@@ -135,7 +135,7 @@ export default function Pricing() {
 
             <div className="mt-8 pt-6 border-t border-white/10">
               <Link
-                href="/contact"
+                to="/contact"
                 className={`w-full py-3 rounded-full flex items-center justify-center font-sans font-semibold text-[13px] tracking-tight transition-colors ${
                   plan.highlight
                     ? "bg-white text-black hover:bg-neutral-200"
